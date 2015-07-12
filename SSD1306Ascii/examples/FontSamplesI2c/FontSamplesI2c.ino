@@ -72,7 +72,7 @@ void setup() {
     oled.println(fontName[i]);
     oled.println();  
     oled.setFont(fontList[i]);
-    oled.println("+-/*.,0123456789");
+    oled.println("*+,-./0123456789:");
     oled.println("abcdefghijklmno");
     oled.println("ABCDEFGHIJKLMNO");
     delay(10000);    
