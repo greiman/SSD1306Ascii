@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['begin',['begin',['../class_digital_output.html#a43802ebb0dc7fb3d4accb870d54f1c5a',1,'DigitalOutput::begin()'],['../class_s_s_d1306_i2c_ascii.html#a9ecc9d81e57dfbebc5332d3d1cadfca1',1,'SSD1306I2cAscii::begin()'],['../class_s_s_d1306_spi_ascii.html#a25a5c53885c8714f00b51d0dc2945715',1,'SSD1306SpiAscii::begin(const DevType *dev, uint8_t cs, uint8_t dc)'],['../class_s_s_d1306_spi_ascii.html#a8fca28c2fdc8481215ca9ca0a32dfbe3',1,'SSD1306SpiAscii::begin(const DevType *dev, uint8_t cs, uint8_t dc, uint8_t rst)'],['../class_s_s_d1306_sw_spi_ascii.html#aa37d99eac40859412b8c7e08b286471a',1,'SSD1306SwSpiAscii::begin(const DevType *dev, uint8_t cs, uint8_t dc, uint8_t clk, uint8_t data)'],['../class_s_s_d1306_sw_spi_ascii.html#a58a60cec999aa010acc5a2ec2ef300d5',1,'SSD1306SwSpiAscii::begin(const DevType *dev, uint8_t cs, uint8_t dc, uint8_t clk, uint8_t data, uint8_t rst)']]]
+];

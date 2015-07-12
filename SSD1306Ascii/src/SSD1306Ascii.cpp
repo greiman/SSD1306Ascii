@@ -1,0 +1,189 @@
+/* Arduino SSD1306Ascii Library
+ * Copyright (C) 2015 by William Greiman
+ *
+ * This file is part of the Arduino SSD1306Ascii Library
+ *
+ * This Library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This Library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with the Arduino SSD1306Ascii Library.  If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+#include "SSD1306Ascii.h"
+//------------------------------------------------------------------------------
+uint8_t SSD1306Ascii::charWidth(uint8_t c) {
+  if (!m_font) {
+    return 0;
+  }
+  uint8_t first = pgm_read_byte(m_font + FONT_FIRST_CHAR);
+  uint8_t count = pgm_read_byte(m_font + FONT_CHAR_COUNT);
+  if (c < first || c >= (first + count)) {
+    return 0;
+  }
+  if (pgm_read_byte(m_font) || pgm_read_byte(m_font + 1) > 1) {
+    // Proportional font.
+    return pgm_read_byte(m_font + FONT_WIDTH_TABLE + c - first);
+  }
+  // Fixed width font.
+  return m_magFactor*pgm_read_byte(m_font + FONT_FIXED_WIDTH);
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::clear() {
+  clear(0, displayWidth() - 1, 0 , displayRows() - 1);
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::clear(uint8_t c0, uint8_t c1, uint8_t r0, uint8_t r1) {
+  if (r1 >= displayRows()) r1 = displayRows() - 1;
+  for (uint8_t r = r0; r <= r1; r++) {
+    setCursor(c0, r);
+    for (uint8_t c = c0; c <= c1; c++) {
+      ssd1306WriteRamBuf(0);
+    }
+  }
+  setCursor(c0, r0);
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::clearToEOL() {
+  clear (m_col, displayWidth() - 1, m_row, m_row + fontRows() - 1);
+}
+//------------------------------------------------------------------------------
+uint8_t SSD1306Ascii::fontHeight() {
+  return m_font ? m_magFactor*pgm_read_byte(m_font + FONT_HEIGHT) : 0;
+}
+//------------------------------------------------------------------------------
+uint8_t SSD1306Ascii::fontWidth() {
+  return m_font ? m_magFactor*pgm_read_byte(m_font + FONT_FIXED_WIDTH) : 0;
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::init(const DevType* dev) {
+  m_col = 0;
+  m_row = 0;
+  const uint8_t* table = (const uint8_t*)pgm_read_word(&dev->initcmds);
+  uint8_t size = pgm_read_byte(&dev->initSize);
+  m_displayWidth = pgm_read_byte(&dev->lcdWidth);
+  m_displayHeight = pgm_read_byte(&dev->lcdHeight); 
+  for (uint8_t i = 0; i < size; i++) {
+    ssd1306WriteCmd(pgm_read_byte(table + i));
+  }
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::reset(uint8_t rst) {
+  pinMode(rst, OUTPUT);
+  digitalWrite(rst, LOW);
+  delay(10);
+  digitalWrite(rst, HIGH);
+  delay(10);  
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::setContrast(uint8_t value) {
+  ssd1306WriteCmd(SSD1306_SETCONTRAST);
+  ssd1306WriteCmd(value);
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::setCursor(uint8_t col, uint8_t row) {
+ if (col < m_displayWidth) {
+    m_col = col;    
+    ssd1306WriteCmd(SSD1306_SETLOWCOLUMN | (col & 0XF));
+    ssd1306WriteCmd(SSD1306_SETHIGHCOLUMN | (col >> 4));    
+  }
+  if (row < m_displayHeight/8) {
+    m_row = row;
+    ssd1306WriteCmd(SSD1306_SETSTARTPAGE | row);
+  }  
+}  
+//-----------------------------------------------------------------------------
+void SSD1306Ascii::ssd1306WriteRam(uint8_t c) {
+  if (m_col >= m_displayWidth) return;
+  writeDisplay(c, SSD1306_MODE_RAM);
+  m_col++;
+}
+//-----------------------------------------------------------------------------
+void SSD1306Ascii::ssd1306WriteRamBuf(uint8_t c) {
+  if (m_col >= m_displayWidth) return;
+  writeDisplay(c, SSD1306_MODE_RAM_BUF);
+  m_col++;
+}
+//------------------------------------------------------------------------------
+GLCDFONTDECL(scaledNibble) = {
+  0X00, 0X03, 0X0C, 0X0F,
+  0X30, 0X33, 0X3C, 0X3F,
+  0XC0, 0XC3, 0XCC, 0XCF,
+  0XF0, 0XF3, 0XFC, 0XFF
+};
+//------------------------------------------------------------------------------
+size_t SSD1306Ascii::write(uint8_t ch) {
+
+  uint8_t scol = m_col;
+  uint8_t srow = m_row;
+  const uint8_t* base = m_font;
+  if (!base) return 0;
+  uint16_t size = pgm_read_byte(base++) << 4;
+  size |= pgm_read_byte(base++);
+  uint8_t w = pgm_read_byte(base++);
+  uint8_t h = pgm_read_byte(base++);
+  uint8_t nr = (h + 7)/8;
+  uint8_t first = pgm_read_byte(base++);
+  uint8_t count = pgm_read_byte(base++);
+  if (ch < first || ch >= (first + count)) {
+    if (ch == '\n') {
+      setCursor(0, m_row + m_magFactor*nr);
+      return 1;
+    }
+    return 0;
+  }
+  ch -= first;
+  uint8_t s = m_magFactor;
+  uint8_t thieleShift = 0;
+  if (size < 2) {
+    if (size) s = 0;
+    base += nr*w*ch;
+  } else {
+    if (h & 7) {
+      thieleShift = 8 - (h & 7);
+    }
+    uint16_t index = 0;
+    for (uint8_t i = 0; i < ch; i++) {
+      index += pgm_read_byte(base + i);
+    }
+    w = pgm_read_byte(base + ch);
+    base += nr*index + count;
+  }
+  for (uint8_t r = 0; r < nr; r++) {
+    for (uint8_t m = 0; m < m_magFactor; m++) {
+      if (r || m) setCursor(scol, m_row + 1);
+      for (uint8_t c = 0; c < w; c++) {
+        uint8_t b = pgm_read_byte(base + c + r*w);
+        if (thieleShift && (r + 1) == nr) {
+          b >>= thieleShift;
+        }
+        if (m_magFactor == 2) {
+           b = m ?  b >> 4 : b & 0XF;
+           b = pgm_read_byte(scaledNibble + b);
+           ssd1306WriteRamBuf(b);
+        }
+        ssd1306WriteRamBuf(b);
+      }
+      for (uint8_t i = 0; i < s; i++) {
+        ssd1306WriteRamBuf(0);
+      }
+    }
+  }
+  setRow(srow);
+  return 1;
+}
+//------------------------------------------------------------------------------
+size_t SSD1306Ascii::write(const char* s) {
+  size_t n = strlen(s);
+  for (size_t i = 0; i < n; i++) {
+    write(s[i]);
+  }
+  return n;
+}
