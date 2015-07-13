@@ -172,12 +172,14 @@ These options are at the start of the file.
 
 Please see the Classes tab for more information.
 
-For I2C displays see the SSD1306I2cAscii class.
+For I2C displays using the wire library Wire see the SSD1306AsciiWire class.
+
+For I2C displays using the small AvrI2c class see the SSD1306AsciiAvrI2c class.
 
 For SPI displays connected to the Arduino hardware SPI pins see the
-SSD1306SpiAscii class.
+SSD1306AsciiSpi class.
 
-See the SSD1306SwSpiAscii class for use of Software SPI.
+See the SSD1306AsciiSoftSpi class for use of Software SPI.
 
 
 @section comment Bugs and Comments

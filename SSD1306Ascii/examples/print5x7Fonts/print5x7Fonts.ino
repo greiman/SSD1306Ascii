@@ -1,8 +1,8 @@
 // This example is a development tool and does not use the display.
 // Print simple representation of ASCII characters for 5x7 fixed fonts.
 //
-#include <SdFat.h>
-#include <SSD1306Ascii.h>
+#include "SdFat.h"
+#include "SSD1306Ascii.h"
 const char* fontName[] = {
   "Adafruit5x7",
   "font5x7",
@@ -48,10 +48,14 @@ void printChar(const uint8_t*font, uint8_t c) {
 //------------------------------------------------------------------------------
 void setup()   {
   Serial.begin(9600);
-  sd.begin();
+  if (!sd.begin()) {
+    Serial.println("begin error"); 
+    return;   
+  }
   char name[] = "5x7fonts.txt";
   if (!file.open(name, O_CREAT | O_WRITE |O_TRUNC)) {
     Serial.println("OPEN ERROR");
+    return;
   }
   for (uint8_t i = 0; i < nFont; i++) {
     file.println();

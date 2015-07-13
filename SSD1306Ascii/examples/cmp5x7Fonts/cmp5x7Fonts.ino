@@ -2,14 +2,14 @@
 
 #include <SPI.h>
 #include "SSD1306Ascii.h"
-#include "SSD1306SpiAscii.h"
+#include "SSD1306AsciiSpi.h"
 
 // pin definitions
 #define OLED_RST 8
 #define OLED_DC  9
 #define OLED_CS 10
 
-SSD1306SpiAscii oled;
+SSD1306AsciiSpi oled;
 
 const char* fontName[] = {
   "Adafruit5x7",

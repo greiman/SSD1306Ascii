@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['initcmds',['initcmds',['../struct_dev_type.html#adb1a2fe45c58f002fe4e535f4dc4c57e',1,'DevType']]],
-  ['initsize',['initSize',['../struct_dev_type.html#a0c7a0aae17eedda9252d9e777605a245',1,'DevType']]]
+  ['f_5ftwi',['F_TWI',['../_avr_i2c_8h.html#a352422204f1a0179f3c08171d7f0e6cc',1,'AvrI2c.h']]]
 ];

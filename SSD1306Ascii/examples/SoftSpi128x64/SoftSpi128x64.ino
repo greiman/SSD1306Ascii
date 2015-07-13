@@ -6,11 +6,10 @@
 #define OLED_CLK  13
 #define OLED_DATA 11
 
-#include <SPI.h>
-#include "SSD1306ASCII.h"
-#include "SSD1306SwSpiAscii.h"
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiSoftSpi.h"
 
-SSD1306SwSpiAscii oled;
+SSD1306AsciiSoftSpi oled;
 //------------------------------------------------------------------------------
 void setup() {         
   oled.begin(&Adafruit128x64, OLED_CS, OLED_DC, OLED_CLK, OLED_DATA);

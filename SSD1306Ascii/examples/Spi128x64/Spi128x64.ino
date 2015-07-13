@@ -5,10 +5,10 @@
 #define OLED_CS 10
 
 #include <SPI.h>
-#include "SSD1306ASCII.h"
-#include "SSD1306SpiAscii.h"
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiSpi.h"
 
-SSD1306SpiAscii oled;
+SSD1306AsciiSpi oled;
 //------------------------------------------------------------------------------
 void setup() {         
   oled.begin(&Adafruit128x64, OLED_CS, OLED_DC);
