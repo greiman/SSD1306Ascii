@@ -11,7 +11,7 @@
 #ifndef _allFonts_h_
 #define _allFonts_h_
 
-#if __AVR__
+#ifdef __AVR__
 #include <avr/pgmspace.h>
 /** declare a font for AVR. */
 #define GLCDFONTDECL(_n) static const uint8_t __attribute__ ((progmem))_n[]
