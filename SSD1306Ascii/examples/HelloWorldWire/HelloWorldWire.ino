@@ -8,7 +8,8 @@
 
 SSD1306AsciiWire oled;
 //------------------------------------------------------------------------------
-void setup() {                
+void setup() {
+  Wire.begin();                
   oled.begin(&Adafruit128x64, I2C_ADDRESS);
   oled.setFont(System5x7);
   oled.clear();

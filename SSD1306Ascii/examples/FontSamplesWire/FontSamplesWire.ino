@@ -63,7 +63,8 @@ uint8_t nFont = sizeof(fontList)/sizeof(uint8_t*);
 
 SSD1306AsciiWire oled;
 //------------------------------------------------------------------------------
-void setup() {         
+void setup() {
+  Wire.begin();     
   oled.begin(&Adafruit128x64, I2C_ADDRESS);
   oled.set400kHz();  
   for (uint8_t i = 0; i < nFont; i++) {

@@ -25,9 +25,6 @@
 #define AvrI2c_h
 #include <Arduino.h>
 
-/** hardware I2C clock in Hz */
-uint32_t const F_TWI = 400000L;
-
 /** Bit to or with address for read start and read restart */
 uint8_t const I2C_READ = 1;
 

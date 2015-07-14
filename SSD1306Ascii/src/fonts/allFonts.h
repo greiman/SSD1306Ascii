@@ -15,11 +15,12 @@
 #include <avr/pgmspace.h>
 /** declare a font for AVR. */
 #define GLCDFONTDECL(_n) static const uint8_t __attribute__ ((progmem))_n[]
+#define readFontByte(add) pgm_read_byte(add)
 #else  // __AVR__
 /** declare a font. */
 #define GLCDFONTDECL(_n) static const uint8_t _n[]
 /** Fake read from flash. */
-#define pgm_read_byte(add) *(add)
+#define readFontByte(add) *(add)
 #endif  // __AVR__
 //------------------------------------------------------------------------------
 // Font Indices

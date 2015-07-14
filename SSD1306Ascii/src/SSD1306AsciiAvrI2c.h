@@ -21,8 +21,8 @@
  * @file SSD1306AsciiAvrI2c.h
  * @brief Class for I2C displays using AvrI2c.
  */
-#ifndef SSD1306AsciiWire_h
-#define SSD1306AsciiWire_h
+#ifndef SSD1306AsciiAvrI2c_h
+#define SSD1306AsciiAvrI2c_h
 #include "utility/AvrI2c.h"
 #include "SSD1306Ascii.h"
 /**
@@ -72,4 +72,4 @@ class SSD1306AsciiAvrI2c : public SSD1306Ascii {
   uint8_t m_i2cAddr;
   uint8_t m_nData;
 };
-#endif SSD1306AsciiWire_h
+#endif SSD1306AsciiAvrI2c_h

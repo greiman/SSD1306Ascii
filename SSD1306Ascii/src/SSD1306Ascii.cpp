@@ -23,17 +23,17 @@ uint8_t SSD1306Ascii::charWidth(uint8_t c) {
   if (!m_font) {
     return 0;
   }
-  uint8_t first = pgm_read_byte(m_font + FONT_FIRST_CHAR);
-  uint8_t count = pgm_read_byte(m_font + FONT_CHAR_COUNT);
+  uint8_t first = readFontByte(m_font + FONT_FIRST_CHAR);
+  uint8_t count = readFontByte(m_font + FONT_CHAR_COUNT);
   if (c < first || c >= (first + count)) {
     return 0;
   }
-  if (pgm_read_byte(m_font) || pgm_read_byte(m_font + 1) > 1) {
+  if (readFontByte(m_font) || readFontByte(m_font + 1) > 1) {
     // Proportional font.
-    return pgm_read_byte(m_font + FONT_WIDTH_TABLE + c - first);
+    return readFontByte(m_font + FONT_WIDTH_TABLE + c - first);
   }
   // Fixed width font.
-  return m_magFactor*pgm_read_byte(m_font + FONT_FIXED_WIDTH);
+  return m_magFactor*readFontByte(m_font + FONT_FIXED_WIDTH);
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::clear() {
@@ -56,22 +56,22 @@ void SSD1306Ascii::clearToEOL() {
 }
 //------------------------------------------------------------------------------
 uint8_t SSD1306Ascii::fontHeight() {
-  return m_font ? m_magFactor*pgm_read_byte(m_font + FONT_HEIGHT) : 0;
+  return m_font ? m_magFactor*readFontByte(m_font + FONT_HEIGHT) : 0;
 }
 //------------------------------------------------------------------------------
 uint8_t SSD1306Ascii::fontWidth() {
-  return m_font ? m_magFactor*pgm_read_byte(m_font + FONT_FIXED_WIDTH) : 0;
+  return m_font ? m_magFactor*readFontByte(m_font + FONT_FIXED_WIDTH) : 0;
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::init(const DevType* dev) {
   m_col = 0;
   m_row = 0;
   const uint8_t* table = (const uint8_t*)pgm_read_word(&dev->initcmds);
-  uint8_t size = pgm_read_byte(&dev->initSize);
-  m_displayWidth = pgm_read_byte(&dev->lcdWidth);
-  m_displayHeight = pgm_read_byte(&dev->lcdHeight); 
+  uint8_t size = readFontByte(&dev->initSize);
+  m_displayWidth = readFontByte(&dev->lcdWidth);
+  m_displayHeight = readFontByte(&dev->lcdHeight); 
   for (uint8_t i = 0; i < size; i++) {
-    ssd1306WriteCmd(pgm_read_byte(table + i));
+    ssd1306WriteCmd(readFontByte(table + i));
   }
 }
 //------------------------------------------------------------------------------
@@ -125,13 +125,13 @@ size_t SSD1306Ascii::write(uint8_t ch) {
   uint8_t srow = m_row;
   const uint8_t* base = m_font;
   if (!base) return 0;
-  uint16_t size = pgm_read_byte(base++) << 4;
-  size |= pgm_read_byte(base++);
-  uint8_t w = pgm_read_byte(base++);
-  uint8_t h = pgm_read_byte(base++);
+  uint16_t size = readFontByte(base++) << 4;
+  size |= readFontByte(base++);
+  uint8_t w = readFontByte(base++);
+  uint8_t h = readFontByte(base++);
   uint8_t nr = (h + 7)/8;
-  uint8_t first = pgm_read_byte(base++);
-  uint8_t count = pgm_read_byte(base++);
+  uint8_t first = readFontByte(base++);
+  uint8_t count = readFontByte(base++);
   if (ch < first || ch >= (first + count)) {
     if (ch == '\n') {
       setCursor(0, m_row + m_magFactor*nr);
@@ -151,22 +151,22 @@ size_t SSD1306Ascii::write(uint8_t ch) {
     }
     uint16_t index = 0;
     for (uint8_t i = 0; i < ch; i++) {
-      index += pgm_read_byte(base + i);
+      index += readFontByte(base + i);
     }
-    w = pgm_read_byte(base + ch);
+    w = readFontByte(base + ch);
     base += nr*index + count;
   }
   for (uint8_t r = 0; r < nr; r++) {
     for (uint8_t m = 0; m < m_magFactor; m++) {
       if (r || m) setCursor(scol, m_row + 1);
       for (uint8_t c = 0; c < w; c++) {
-        uint8_t b = pgm_read_byte(base + c + r*w);
+        uint8_t b = readFontByte(base + c + r*w);
         if (thieleShift && (r + 1) == nr) {
           b >>= thieleShift;
         }
         if (m_magFactor == 2) {
            b = m ?  b >> 4 : b & 0XF;
-           b = pgm_read_byte(scaledNibble + b);
+           b = readFontByte(scaledNibble + b);
            ssd1306WriteRamBuf(b);
         }
         ssd1306WriteRamBuf(b);

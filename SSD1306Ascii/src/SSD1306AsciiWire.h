@@ -42,8 +42,6 @@ class SSD1306AsciiWire : public SSD1306Ascii {
     m_nData = 0;
 #endif  // OPTMIZE_I2C
     m_i2cAddr = i2cAddr;
-
-    Wire.begin();
     init(dev);    
   }
   /**

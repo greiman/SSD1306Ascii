@@ -2,7 +2,6 @@
 // FONT -zevv-peep-Medium-R-Normal--16-140-75-75-C-80-ISO8859-1
 #ifndef font8x16_h
 #define font8x16_h
-#include <avr/pgmspace.h>
 
 GLCDFONTDECL(ZevvPeep8x16) = {
   0x0, 0x0, // size of zero indicates fixed width font,
