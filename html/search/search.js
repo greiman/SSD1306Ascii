@@ -11,7 +11,7 @@ var indexSectionsWithContent =
   1: "ads",
   2: "ads",
   3: "bcdfhimrsw",
-  4: "afilt",
+  4: "ailt",
   5: "os",
   6: "a"
 };

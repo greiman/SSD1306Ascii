@@ -137,6 +137,8 @@ Verdana12_italic
 Verdana_digits_24
 @endverbatim
 
+See allFonts.h for more information on adding a font.
+
 The set2X() call doubles the size of characters.  Each pixel becomes a
 2x2 square.  To return to standard size characters call set1X();
 @code

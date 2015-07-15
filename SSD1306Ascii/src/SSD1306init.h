@@ -93,12 +93,12 @@ struct DevType {
   const uint8_t  lcdHeight; 
 };
 //------------------------------------------------------------------------------
-#ifdef DOXYGEN
+#ifndef __AVR__
 /** Initialization commands for a 128x32 oled display. */
 static const uint8_t Adafruit128x32init[] = {
-#else  // DOXYGEN
+#else  // __AVR__
 static const uint8_t Adafruit128x32init[] PROGMEM = {
-#endif  //  DOXYGEN
+#endif  // __AVR
     // Init sequence for Adafruit 128x32 OLED module
     SSD1306_DISPLAYOFF,
     SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // the suggested ratio 0x80
@@ -117,24 +117,24 @@ static const uint8_t Adafruit128x32init[] PROGMEM = {
     SSD1306_NORMALDISPLAY,
     SSD1306_DISPLAYON
 };
-#ifdef DOXYGEN
+#ifndef __AVR__
 /** Initialize a 128x32 oled display. */
 static const DevType Adafruit128x32 = {
-#else  // DOXYGEN  
+#else  // __AVR__  
 static const DevType Adafruit128x32 PROGMEM = {
-#endif  //  DOXYGEN  
+#endif  // __AVR__  
   Adafruit128x32init, 
   sizeof(Adafruit128x32init),
   128,
   32
 };
 //------------------------------------------------------------------------------
-#ifdef DOXYGEN
+#ifndef __AVR__
 /** Initialization commands for a 128x64 oled display. */
 static const uint8_t Adafruit128x64init[] = {
-#else  // DOXYGEN
+#else  // __AVR__
 static const uint8_t Adafruit128x64init[] PROGMEM = {
-#endif  //  DOXYGEN
+#endif  // __AVR__
     // Init sequence for Adafruit 128x64 OLED module
     SSD1306_DISPLAYOFF,
     SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // the suggested ratio 0x80
@@ -153,12 +153,12 @@ static const uint8_t Adafruit128x64init[] PROGMEM = {
     SSD1306_NORMALDISPLAY,
     SSD1306_DISPLAYON
 };
-#ifdef DOXYGEN
+#ifndef __AVR__
 /** Initialize a 128x64 oled display. */
 static const DevType Adafruit128x64 = {
-#else  // DOXYGEN 
+#else  // __AVR__ 
 static const DevType Adafruit128x64 PROGMEM = {
-#endif  //  DOXYGEN  
+#endif  // __AVR__  
   Adafruit128x64init, 
   sizeof(Adafruit128x64init),
   128,

@@ -78,7 +78,7 @@ class AvrI2c {
     return TWDR;
   }
   /** 
-   * @brief Issue a repeaedt start condition.
+   * @brief Issue a repeated start condition.
    *
    * same as start with no stop.  Included to document intention.
    *
