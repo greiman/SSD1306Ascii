@@ -213,6 +213,7 @@ class SSD1306Ascii : public Print {
   uint8_t m_row;            // Cursor RAM row.
   uint8_t m_displayWidth;   // Display width. 
   uint8_t m_displayHeight;  // Display height.
+  uint8_t m_colOffset;      // Column offset RAM to SEG
   uint8_t m_magFactor;      // Magnification factor.
   const uint8_t* m_font;    // Current font.
 };

@@ -34,7 +34,7 @@ monochrome OLED displays.  These displays are available on ebay at
 very low cost.
 
 The library is being developed using 0.96" and 1.3" displays with SSD1306
-controllers.  The library will be extended to SH1106 controllers in the future.
+controllers.  An initialization sequence for SH1106 controllers is included.
 
 There are many existing full featured graphics libraries for these displays.
 The goal for this library is to only display text with minimum use of

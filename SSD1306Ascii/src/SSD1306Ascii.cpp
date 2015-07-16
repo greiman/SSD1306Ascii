@@ -73,7 +73,8 @@ void SSD1306Ascii::init(const DevType* dev) {
   #endif  // __AVR
   uint8_t size = readFontByte(&dev->initSize);
   m_displayWidth = readFontByte(&dev->lcdWidth);
-  m_displayHeight = readFontByte(&dev->lcdHeight); 
+  m_displayHeight = readFontByte(&dev->lcdHeight);
+  m_colOffset = readFontByte(&dev->colOffset); 
   for (uint8_t i = 0; i < size; i++) {
     ssd1306WriteCmd(readFontByte(table + i));
   }
@@ -94,7 +95,8 @@ void SSD1306Ascii::setContrast(uint8_t value) {
 //------------------------------------------------------------------------------
 void SSD1306Ascii::setCursor(uint8_t col, uint8_t row) {
  if (col < m_displayWidth) {
-    m_col = col;    
+    m_col = col;
+    col += m_colOffset;
     ssd1306WriteCmd(SSD1306_SETLOWCOLUMN | (col & 0XF));
     ssd1306WriteCmd(SSD1306_SETHIGHCOLUMN | (col >> 4));    
   }
