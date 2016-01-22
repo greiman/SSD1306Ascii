@@ -143,6 +143,10 @@ size_t SSD1306Ascii::write(uint8_t ch) {
       setCursor(0, m_row + m_magFactor*nr);
       return 1;
     }
+    if (ch == '\r') {
+      setCursor(0, m_row); 
+      return 1;      
+    } 
     return 0;
   }
   ch -= first;
