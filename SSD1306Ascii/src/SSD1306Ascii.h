@@ -27,9 +27,29 @@
 #include "SSD1306init.h"
 #include "fonts/allFonts.h"
 //------------------------------------------------------------------------------
+/** SSD1306Ascii version YYYYMMDD */
+#define SDD1306_ASCII_VERSION 20160127
+//------------------------------------------------------------------------------
 // Configuration options.
+/** Set Scrolling mode for new line.
+ *
+ * If INCLUDE_SCROLLING is defined to be zero, new line will not scroll
+ * the display and code for scrolling will not be included.  This option 
+ * will save some code space and one byte of RAM.
+ *
+ * If INCLUDE_SCROLLING is defined to be one, the scroll feature will
+ * be included but not enabled.  A call to setScroll() will be required
+ * to enable scrolling.
+ *
+ * If INCLUDE_SCROLLING is defined to be two, the scroll feature will
+ * be included and enabled. A call to setScroll() will be required
+ * to disable scrolling.
+ */
+#define INCLUDE_SCROLLING 1
+
 /** Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
+
 /** Define OPTIMIZE_AVR_SPI non-zero for a faster smaller AVR SPI code.
  * Warning AVR will not use SPI transactions.
  */
@@ -144,7 +164,7 @@ class SSD1306Ascii : public Print {
    *
    * @param[in] col The desired column number in pixels.
    */
-  void setCol(uint8_t col) {setCursor(col, 0XFF);}
+  void setCol(uint8_t col);
   /**
    * @brief Set the display contrast.
    *
@@ -169,7 +189,19 @@ class SSD1306Ascii : public Print {
    *
    * @param[in] row the row number in eight pixel rows.
    */
-  void setRow(uint8_t row) {setCursor(0XFF, row);}
+  void setRow(uint8_t row);
+#if INCLUDE_SCROLLING   
+  /**
+   * @brief Enable or disable scroll mode.
+   *
+   * @param[in] enable true enable scroll on new line false disable scroll.
+   * @note Scroll mode is only supported on 64 pixel high displays.
+   *       Using setRow() or setCursor() will be unpredictable in scroll mode.
+   *       You must use a font with an integral number of line on
+   *       the display.
+   */
+  void setScroll(bool enable);
+#endif  // INCLUDE_SCROLLING   
   /**
    * @brief Write a command byte to the display controller.
    *
@@ -208,13 +240,16 @@ class SSD1306Ascii : public Print {
   size_t write(const char* s);
   
  private:
-  virtual void writeDisplay(uint8_t b, uint8_t mode) = 0;  
+  virtual void writeDisplay(uint8_t b, uint8_t mode) = 0;
   uint8_t m_col;            // Cursor column.
   uint8_t m_row;            // Cursor RAM row.
   uint8_t m_displayWidth;   // Display width. 
   uint8_t m_displayHeight;  // Display height.
   uint8_t m_colOffset;      // Column offset RAM to SEG
   uint8_t m_magFactor;      // Magnification factor.
+#if INCLUDE_SCROLLING    
+  uint8_t m_scroll;          // Scroll mode 
+#endif  // INCLUDE_SCROLLING    
   const uint8_t* m_font;    // Current font.
 };
 #endif  // SSD1306Ascii_h

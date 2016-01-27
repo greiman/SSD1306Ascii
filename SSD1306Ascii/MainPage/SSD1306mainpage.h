@@ -71,6 +71,36 @@ See the Manual installation section of this guide.
 
 http://arduino.cc/en/Guide/Libraries
 
+@section Scroll Scroll Mode
+
+Scroll mode causes the display to scroll up when a new line is written to
+the display.
+
+Scroll mode is configured by editing SSD1306Ascii.h.
+
+If INCLUDE_SCROLLING is defined to be zero, new line will not scroll
+the display and code for scrolling will not be included.  This option 
+will save some code space and one byte of RAM.
+
+If INCLUDE_SCROLLING is defined to be one, the scroll feature will
+be included but not enabled.  A call to setScroll() will be required
+to enable scrolling.
+
+If INCLUDE_SCROLLING is defined to be two, the scroll feature will
+be included and enabled. A call to setScroll() will be required
+to disable scrolling.
+
+Scroll mode is only supported on 64 pixel high displays.
+
+Call setScroll() to enable or disable scroll mode.
+
+Calls to setCursor(), setRow() and other cursor positioning functions 
+will be unpredictable in scroll mode.
+
+The clear() call will erase the display and start at the top of the display.
+
+See the ScrollSpi and ScrollWire examples.
+  
 @section Fonts Fonts
 
 Fonts are defined by .h files in the SSD1306Ascii/src/fonts folder.  The fonts 
@@ -106,7 +136,7 @@ ZevvPeep8x16
 @endverbatim
 
 Here are symbols for proportional fonts.  Note that Iain5x7 and utf8font10x16
-are proportinal.
+are proportional.
 @verbatim
 Arial14
 Arial_bold_14
@@ -161,12 +191,28 @@ These options are at the start of the file.
 
 @code
 // Configuration options.
-//
-// Use larger faster I2C code.
+/* Set Scrolling mode for new line.
+ *
+ * If INCLUDE_SCROLLING is defined to be zero, new line will not scroll
+ * the display and code for scrolling will not be included.  This option 
+ * will save some code space and one byte of RAM.
+ *
+ * If INCLUDE_SCROLLING is defined to be one, the scroll feature will
+ * be included but not enabled.  A call to setScroll() will be required
+ * to enable scrolling.
+ *
+ * If INCLUDE_SCROLLING is defined to be two, the scroll feature will
+ * be included and enabled. A call to setScroll() will be required
+ * to disable scrolling.
+ */
+#define INCLUDE_SCROLLING 1
+
+/* Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
-//
-// Define OPTIMIZE_AVR_SPI non-zero for a faster smaller AVR SPI code.
-// Warning AVR will not use SPI transactions.
+
+/* Define OPTIMIZE_AVR_SPI non-zero for a faster smaller AVR SPI code.
+ * Warning AVR will not use SPI transactions.
+ */
 #define OPTIMIZE_AVR_SPI 1
 @endcode
 

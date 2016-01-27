@@ -57,6 +57,8 @@ class SSD1306AsciiWire : public SSD1306Ascii {
     // Force 400 KHz I2C, rawr! (Uses pins 20, 21 for SDA, SCL)
     TWI1->TWI_CWGR = 0;
     TWI1->TWI_CWGR = ((VARIANT_MCK / (2 * 400000)) - 4) * 0x101;
+#else  // __AVR_  
+#warning set400kHz() disabled for this CPU.
 #endif  // __AVR_    
   }
 
@@ -91,4 +93,4 @@ class SSD1306AsciiWire : public SSD1306Ascii {
   uint8_t m_nData;
 #endif  // OPTIMIZE_I2C
 };
-#endif SSD1306AsciiWire_h
+#endif  // SSD1306AsciiWire_h

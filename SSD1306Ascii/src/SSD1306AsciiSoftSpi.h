@@ -83,4 +83,4 @@ class SSD1306AsciiSoftSpi : public SSD1306Ascii {
   DigitalOutput m_clkPin;
   DigitalOutput m_dataPin;  
 };
-#endif SSD1306AsciiSoftSpi_h
+#endif // SSD1306AsciiSoftSpi_h

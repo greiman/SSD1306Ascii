@@ -136,4 +136,4 @@ class SSD1306AsciiSpi : public SSD1306Ascii {
   DigitalOutput m_dcPin;
 };
 #endif  // OPTIMIZE_AVR_SPI
-#endif SSD1306AsciiSpi_h
+#endif  // SSD1306AsciiSpi_h

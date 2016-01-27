@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['sdd1306_5fascii_5fversion',['SDD1306_ASCII_VERSION',['../_s_s_d1306_ascii_8h.html#a16b06bf2cd0b926b27db43a65c982369',1,'SSD1306Ascii.h']]],
   ['set1x',['set1X',['../class_s_s_d1306_ascii.html#a3c0182f72bb352c3bbeeeff4f42bf253',1,'SSD1306Ascii']]],
   ['set2x',['set2X',['../class_s_s_d1306_ascii.html#a37623fdc8396b3054ae14f66e47dbd30',1,'SSD1306Ascii']]],
   ['set400khz',['set400kHz',['../class_s_s_d1306_ascii_wire.html#ad63cf2c117d4c2d8894ca0c700993c98',1,'SSD1306AsciiWire']]],
@@ -8,6 +9,7 @@ var searchData=
   ['setcursor',['setCursor',['../class_s_s_d1306_ascii.html#ae17ec7ca20e16fdc832ec5ff579597d6',1,'SSD1306Ascii']]],
   ['setfont',['setFont',['../class_s_s_d1306_ascii.html#a1129bcc81e4a46a32a01825b7b8a5cf3',1,'SSD1306Ascii']]],
   ['setrow',['setRow',['../class_s_s_d1306_ascii.html#a8aa1820cbea2e6fe2cb607910436e87a',1,'SSD1306Ascii']]],
+  ['setscroll',['setScroll',['../class_s_s_d1306_ascii.html#ae6e7e2c25f90ac6a98b5fca7753a4c0b',1,'SSD1306Ascii']]],
   ['sh1106_5f128x64',['SH1106_128x64',['../_s_s_d1306init_8h.html#a29cff082b59522083f68a451d7e31025',1,'SSD1306init.h']]],
   ['sh1106_5f128x64init',['SH1106_128x64init',['../_s_s_d1306init_8h.html#ac9f9788202d7665bdecd1b571b3520b2',1,'SSD1306init.h']]],
   ['sh1106_5fpump_5foff',['SH1106_PUMP_OFF',['../_s_s_d1306init_8h.html#a7768d6f2cca58d977ab699d5e424c978',1,'SSD1306init.h']]],
