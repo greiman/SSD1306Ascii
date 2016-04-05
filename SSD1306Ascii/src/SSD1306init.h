@@ -114,6 +114,34 @@ struct DevType {
   const uint8_t colOffset;
 };
 //------------------------------------------------------------------------------
+/** Initialization commands for a 64x48 Micro OLED display (by r7) */
+static const uint8_t MEM_TYPE MicroOLED64x48init[] = {
+    // Init sequence for 64x48 Micro OLED module
+    SSD1306_DISPLAYOFF,
+    SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // the suggested ratio 0x80
+    SSD1306_SETMULTIPLEX, 0x2F,        //
+    SSD1306_SETDISPLAYOFFSET,0x0,      // no offset
+    SSD1306_SETSTARTLINE | 0x0,        // line #0
+    SSD1306_CHARGEPUMP, 0x14,          // internal vcc
+    SSD1306_NORMALDISPLAY,
+    SSD1306_DISPLAYALLON_RESUME,
+    SSD1306_SEGREMAP | 0x1,            // column 127 mapped to SEG0
+    SSD1306_COMSCANDEC,                // column scan direction reversed
+    SSD1306_SETCOMPINS, 0x12,          // 0x12 if height > 32 else 0x02
+    SSD1306_SETCONTRAST, 0x7F,         // contrast level 127
+    SSD1306_SETPRECHARGE, 0xF1,        // pre-charge period (1, 15)
+    SSD1306_SETVCOMDETECT, 0x40,       // vcomh regulator level 
+    SSD1306_DISPLAYON
+};
+/** Initialize a 64x48 Micro OLED display. */  
+static const DevType MEM_TYPE MicroOLED64x48 = {
+  MicroOLED64x48init, 
+  sizeof(MicroOLED64x48init),
+  64,
+  48,
+  32
+};
+//------------------------------------------------------------------------------
 // this section is based on https://github.com/adafruit/Adafruit_SSD1306
 /** Initialization commands for a 128x32 SSD1306 oled display. */
 static const uint8_t MEM_TYPE Adafruit128x32init[] = {
