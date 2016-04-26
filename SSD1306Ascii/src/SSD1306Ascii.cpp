@@ -150,7 +150,7 @@ GLCDFONTDECL(scaledNibble) = {
 size_t SSD1306Ascii::write(uint8_t ch) {
   const uint8_t* base = m_font;
   if (!base) return 0;
-  uint16_t size = readFontByte(base++) << 4;
+  uint16_t size = readFontByte(base++) << 8;
   size |= readFontByte(base++);
   uint8_t w = readFontByte(base++);
   uint8_t h = readFontByte(base++);
