@@ -17,15 +17,6 @@ Maximum is 32,256 bytes.
 Global variables use 53 bytes (2%) of dynamic memory, leaving 1,995 
 bytes for local variables. Maximum is 2,048 bytes.
 
-This library is still in development so the API and features may
-change. The library may have bugs. 
-
-Feedback for future development is welcome.
-
-This is a total rewrite of an earlier version of this library. 
-The previous version is located here:
-
-https://code.google.com/p/beta-lib/downloads/list
 
 
 
