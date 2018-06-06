@@ -30,7 +30,7 @@ uint8_t SSD1306Ascii::charWidth(uint8_t c) {
   }
   if (readFontByte(m_font) || readFontByte(m_font + 1) > 1) {
     // Proportional font.
-    return readFontByte(m_font + FONT_WIDTH_TABLE + c - first);
+    return m_magFactor*readFontByte(m_font + FONT_WIDTH_TABLE + c - first);
   }
   // Fixed width font.
   return m_magFactor*readFontByte(m_font + FONT_FIXED_WIDTH);
@@ -106,6 +106,16 @@ void SSD1306Ascii::setCursor(uint8_t col, uint8_t row) {
   setRow(row);
 }  
 //------------------------------------------------------------------------------
+void SSD1306Ascii::setFont(const uint8_t* font) {
+  m_font = font;
+
+  if (!font || readFontByte(font) || readFontByte(font + 1) != 1) {  
+    m_letterSpacing = 1;
+  } else {
+    m_letterSpacing = 0;
+  }
+}
+//------------------------------------------------------------------------------
 void SSD1306Ascii::setRow(uint8_t row) {
   if (row >= m_displayHeight/8) return;
   m_row = row;
@@ -140,8 +150,8 @@ GLCDFONTDECL(scaledNibble) = {
 };
 //------------------------------------------------------------------------------
 size_t SSD1306Ascii::write(uint8_t ch) {
+  if (!m_font) return 0;    
   const uint8_t* base = m_font;
-  if (!base) return 0;
   uint16_t size = readFontByte(base++) << 8;
   size |= readFontByte(base++);
   uint8_t w = readFontByte(base++);
@@ -179,10 +189,9 @@ size_t SSD1306Ascii::write(uint8_t ch) {
     return 0;
   }
   ch -= first;
-  uint8_t s = m_magFactor;
+  uint8_t s = m_letterSpacing*m_magFactor;
   uint8_t thieleShift = 0;
   if (size < 2) {
-    if (size) s = 0;
     base += nr*w*ch;
   } else {
     if (h & 7) {

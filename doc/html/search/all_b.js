@@ -8,6 +8,7 @@ var searchData=
   ['setcontrast',['setContrast',['../class_s_s_d1306_ascii.html#a0b594b4ef988c32be7337af9a81e5bb3',1,'SSD1306Ascii']]],
   ['setcursor',['setCursor',['../class_s_s_d1306_ascii.html#ae17ec7ca20e16fdc832ec5ff579597d6',1,'SSD1306Ascii']]],
   ['setfont',['setFont',['../class_s_s_d1306_ascii.html#a1129bcc81e4a46a32a01825b7b8a5cf3',1,'SSD1306Ascii']]],
+  ['setletterspacing',['setLetterSpacing',['../class_s_s_d1306_ascii.html#a349b939a24605f252476c728d9ccbb2c',1,'SSD1306Ascii']]],
   ['setrow',['setRow',['../class_s_s_d1306_ascii.html#a8aa1820cbea2e6fe2cb607910436e87a',1,'SSD1306Ascii']]],
   ['setscroll',['setScroll',['../class_s_s_d1306_ascii.html#ae6e7e2c25f90ac6a98b5fca7753a4c0b',1,'SSD1306Ascii']]],
   ['sh1106_5f128x64',['SH1106_128x64',['../_s_s_d1306init_8h.html#a29cff082b59522083f68a451d7e31025',1,'SSD1306init.h']]],

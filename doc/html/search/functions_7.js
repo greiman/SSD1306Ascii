@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['oledreset',['oledReset',['../_s_s_d1306_ascii_8h.html#a2d24b58760aa70ba784ac7a43b2d3b16',1,'SSD1306Ascii.h']]]
+  ['magfactor',['magFactor',['../class_s_s_d1306_ascii.html#aeb94d7f6c55a2fcbcd4d5d10628e170a',1,'SSD1306Ascii']]]
 ];

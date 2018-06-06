@@ -149,7 +149,11 @@ class SSD1306Ascii : public Print {
    *
    * @param[in] dev A display initialization structure.
    */
-  void init(const DevType* dev);   
+  void init(const DevType* dev);
+  /**
+   * @return letter-spacing in pixels before magnification.
+   */
+  uint8_t letterSpacing() {return m_letterSpacing;}   
   /**
    * @return The character magnification factor.
    */
@@ -190,7 +194,13 @@ class SSD1306Ascii : public Print {
    *
    * @param[in] font Pointer to a font table.
    */
-  void setFont(const uint8_t* font) {m_font = font;}
+  void setFont(const uint8_t* font);
+  /**
+   * @brief Set letter-spacing.  setFont() will restore default letter-spacing.
+   *
+   * @param[in] pixels letter-spacing in pixels before magnification.
+   */
+   void setLetterSpacing(uint8_t pixels) {m_letterSpacing = pixels;}  
   /**
    * @brief Set the current row number.
    *
@@ -252,7 +262,8 @@ class SSD1306Ascii : public Print {
   uint8_t m_row;            // Cursor RAM row.
   uint8_t m_displayWidth;   // Display width. 
   uint8_t m_displayHeight;  // Display height.
-  uint8_t m_colOffset;      // Column offset RAM to SEG
+  uint8_t m_colOffset;      // Column offset RAM to SEG.
+  uint8_t m_letterSpacing;  // lerret-spacing in pixels.
   uint8_t m_magFactor;      // Magnification factor.
 #if INCLUDE_SCROLLING    
   uint8_t m_scroll;          // Scroll mode 
