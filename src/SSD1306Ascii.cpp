@@ -79,7 +79,7 @@ uint8_t SSD1306Ascii::fontHeight() {
   return m_font ? m_magFactor*readFontByte(m_font + FONT_HEIGHT) : 0;
 }
 //------------------------------------------------------------------------------
-size_t SSD1306Ascii::fontSize() {
+uint16_t SSD1306Ascii::fontSize() {
   return (readFontByte(m_font) << 8) | readFontByte(m_font + 1);
 }
 //------------------------------------------------------------------------------
