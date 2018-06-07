@@ -28,7 +28,7 @@
 #include "fonts/allFonts.h"
 //------------------------------------------------------------------------------
 /** SSD1306Ascii version */
-#define SDD1306_ASCII_VERSION 1.0.0
+#define SDD1306_ASCII_VERSION 1.1.0
 //------------------------------------------------------------------------------
 // Configuration options.
 /** Set Scrolling mode for new line.
@@ -105,6 +105,17 @@ class SSD1306Ascii : public Print {
    */
   void clear(uint8_t c0, uint8_t c1, uint8_t r0, uint8_t r1);
   /**
+   * @brief Clear a field of n fieldWidth() characters.
+   *
+   * @param[in] col Field start column.   
+   *
+   * @param[in] row Field start row.    
+   *
+   * @param[in] n Number of characters in the field.
+   *
+   */
+  void clearField(uint8_t col, uint8_t row, uint8_t n);
+  /**
    * @brief Clear the display to the end of the current line.
    * @note The number of rows cleared will be determined by the height
    *       of the current font. 
@@ -127,6 +138,26 @@ class SSD1306Ascii : public Print {
    * @return The display width in pixels.
    */
   uint8_t displayWidth() {return m_displayWidth;}
+  /**
+   * @brief Width of a field in pixels.
+   *
+   * @param[in] n Number of characters in the field.
+   *
+   * @return Width of the field.
+   */
+  size_t fieldWidth(uint8_t n);
+  /**
+   * @return The current font pointer.
+   */
+  const uint8_t* font() {return m_font;}
+  /**
+   * @return The count of characters in a font.
+   */
+  uint8_t fontCharCount();
+  /**
+   * @return The first character in a font.
+   */
+   char fontFirstChar();
   /**
    * @return The current font height in pixels.
    */
@@ -151,9 +182,9 @@ class SSD1306Ascii : public Print {
    */
   void init(const DevType* dev);
   /**
-   * @return letter-spacing in pixels before magnification.
+   * @return letter-spacing in pixels with magnification factor.
    */
-  uint8_t letterSpacing() {return m_letterSpacing;}   
+  uint8_t letterSpacing() {return m_magFactor*m_letterSpacing;}   
   /**
    * @return The character magnification factor.
    */
@@ -257,6 +288,7 @@ class SSD1306Ascii : public Print {
   size_t write(const char* s);
   
  private:
+  uint16_t fontSize();
   virtual void writeDisplay(uint8_t b, uint8_t mode) = 0;
   uint8_t m_col;            // Cursor column.
   uint8_t m_row;            // Cursor RAM row.

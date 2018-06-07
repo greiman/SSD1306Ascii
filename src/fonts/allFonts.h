@@ -24,20 +24,20 @@
 #endif  // __AVR__
 //------------------------------------------------------------------------------
 // Font Indices
-#define FONT_LENGTH			  0
-#define FONT_FIXED_WIDTH	2
-#define FONT_HEIGHT			  3
-#define FONT_FIRST_CHAR		4
-#define FONT_CHAR_COUNT		5
-#define FONT_WIDTH_TABLE	6
-//
+#define FONT_LENGTH      0
+#define FONT_WIDTH       2
+#define FONT_HEIGHT      3
+#define FONT_FIRST_CHAR  4
+#define FONT_CHAR_COUNT  5
+#define FONT_WIDTH_TABLE 6
+// 
 // FONT_LENGTH is a 16 bit Big Endian length field.
 // Unfortunately, FontCreator2 screwed up the value it put in the field
 // so it is pretty much meaningless. However it still is used to indicate
 // some special things.
 // 00 00 (fixed width font with 1 padding pixel on right and below)
 // 00 01 (fixed width font with no padding pixels)
-
+// FONT_WIDTH it the max character width. 
 // any other value means variable width font in FontCreator2 (thiele)
 // format with pixel padding
 
