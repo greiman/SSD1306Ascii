@@ -59,5 +59,6 @@ var searchData=
   ['ssd1306writerambuf',['ssd1306WriteRamBuf',['../class_s_s_d1306_ascii.html#a2b6bc3838dca4dab0080e555e1c69206',1,'SSD1306Ascii']]],
   ['start',['start',['../class_avr_i2c.html#a6c09b71a962bf50a2feb0ea7517e1178',1,'AvrI2c']]],
   ['status',['status',['../class_avr_i2c.html#a80d640974c7cdba083d3673dc675cd5b',1,'AvrI2c']]],
-  ['stop',['stop',['../class_avr_i2c.html#a54ade98bafbc7803530ee3df64ae05bb',1,'AvrI2c']]]
+  ['stop',['stop',['../class_avr_i2c.html#a54ade98bafbc7803530ee3df64ae05bb',1,'AvrI2c']]],
+  ['strwidth',['strWidth',['../class_s_s_d1306_ascii.html#acba4d14874d7de3aacbbd95db558a1cd',1,'SSD1306Ascii']]]
 ];

@@ -168,6 +168,18 @@ GLCDFONTDECL(scaledNibble) = {
   0XF0, 0XF3, 0XFC, 0XFF
 };
 //------------------------------------------------------------------------------
+size_t SSD1306Ascii::strWidth(const char* str) {
+  size_t sw = 0;
+  while (*str) {
+    uint8_t cw = charWidth(*str++);
+    if (cw == 0) {
+      return 0;
+    }
+    sw += cw + letterSpacing();
+  }
+  return sw;
+}
+//------------------------------------------------------------------------------
 size_t SSD1306Ascii::write(uint8_t ch) {
   if (!m_font) {
     return 0;
@@ -209,7 +221,7 @@ size_t SSD1306Ascii::write(uint8_t ch) {
     return 0;
   }
   ch -= first;
-  uint8_t s = m_letterSpacing*m_magFactor;
+  uint8_t s = letterSpacing();
   uint8_t thieleShift = 0;
   if (fontSize() < 2) {
     // Fixed width font.

@@ -273,6 +273,11 @@ class SSD1306Ascii : public Print {
    */    
   void ssd1306WriteRamBuf(uint8_t c);
   /**
+   * @param[in] str The pointer to string.
+   * @return the width of the string in pixels.
+   */
+  size_t strWidth(const char* str);
+  /**
    * @brief Display a character.
    *
    * @param[in] c The character to display.
