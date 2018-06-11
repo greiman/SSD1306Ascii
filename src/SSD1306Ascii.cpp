@@ -63,6 +63,11 @@ void SSD1306Ascii::clearField(uint8_t col, uint8_t row, uint8_t n) {
   clear(col, col + fieldWidth(n) - 1, row, row + fontRows() - 1);
 }
 //------------------------------------------------------------------------------
+void SSD1306Ascii::displayRemap(bool mode) {
+  ssd1306WriteCmd(mode ? SSD1306_SEGREMAP : SSD1306_SEGREMAP | 1);
+  ssd1306WriteCmd(mode ? SSD1306_COMSCANINC : SSD1306_COMSCANDEC);
+}
+//------------------------------------------------------------------------------
 size_t SSD1306Ascii::fieldWidth(uint8_t n) {
   return n*(fontWidth() + letterSpacing());
 }

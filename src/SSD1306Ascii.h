@@ -131,6 +131,15 @@ class SSD1306Ascii : public Print {
    */
   uint8_t displayHeight() {return m_displayHeight;}
   /**
+   * @brief Set display to normal or 180 degree remap mode.
+   *
+   * @param[in] mode true for normal mode, false for remap mode.
+   *
+   * @note Adafruit and many ebay displays use remap mode.
+   *       Use normal mode to rotate these displays 180 degrees.
+   */
+  void displayRemap(bool mode);
+  /**
    * @return The display height in rows with eight pixels to a row.
    */
   uint8_t displayRows() {return m_displayHeight/8;}

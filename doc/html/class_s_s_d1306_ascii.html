@@ -114,6 +114,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a2e4809f8a8991dd27853ca4d7da69aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80a737330a702fe4f55d46c2525137aa"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a80a737330a702fe4f55d46c2525137aa">displayHeight</a> ()</td></tr>
 <tr class="separator:a80a737330a702fe4f55d46c2525137aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab05fbcc3a2f70c35d93b1aa0fdf61f4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#ab05fbcc3a2f70c35d93b1aa0fdf61f4d">displayRemap</a> (bool mode)</td></tr>
+<tr class="memdesc:ab05fbcc3a2f70c35d93b1aa0fdf61f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set display to normal or 180 degree remap mode.  <a href="#ab05fbcc3a2f70c35d93b1aa0fdf61f4d">More...</a><br /></td></tr>
+<tr class="separator:ab05fbcc3a2f70c35d93b1aa0fdf61f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62f32691de1d3525cda759e97bac9ca4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a62f32691de1d3525cda759e97bac9ca4">displayRows</a> ()</td></tr>
 <tr class="separator:a62f32691de1d3525cda759e97bac9ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca85cd71c2a3236e6c94deed232e9207"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#aca85cd71c2a3236e6c94deed232e9207">displayWidth</a> ()</td></tr>
@@ -392,6 +395,33 @@ The cursor will be returned to the original position. </dd></dl>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The display hight in pixels. </dd></dl>
+
+</div>
+</div>
+<a id="ab05fbcc3a2f70c35d93b1aa0fdf61f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab05fbcc3a2f70c35d93b1aa0fdf61f4d">&#9670;&nbsp;</a></span>displayRemap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SSD1306Ascii::displayRemap </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set display to normal or 180 degree remap mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>true for normal mode, false for remap mode.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Adafruit and many ebay displays use remap mode. Use normal mode to rotate these displays 180 degrees. </dd></dl>
 
 </div>
 </div>
@@ -1079,7 +1109,7 @@ The cursor will be returned to the original position. </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 8 2018 12:14:24 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 10 2018 08:59:22 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

@@ -16,7 +16,7 @@ uint8_t col1 = 0;  // Last value column.
 uint8_t rows;      // Rows per line.
 //------------------------------------------------------------------------------
 void setup() {
-  const char* label[] = {"Voltage:", "Load:","Runtime:"};
+  const char* label[] = {"Voltage:", "Load:", "Runtime:"};
   const char* units[] = {"volts", "watts", "mins"};   
   Wire.begin();
   Wire.setClock(400000L);
@@ -64,13 +64,15 @@ void clearValue(uint8_t row) {
 //------------------------------------------------------------------------------
 void loop() {
   // Fake system model.
-  double volts = 0.1*random(110, 140);
+  double volts = 0.1*random(110, 130);
   double watts = 0.1*random(200, 500);
+  // 100 Wh battery.
+  int run = 100*60/(int)watts;
   clearValue(0);
   oled.print(volts, 1);
   clearValue(rows);
   oled.print(watts, 1);
   clearValue(2*rows);
-  oled.print((int)(200 - watts));  
+  oled.print(run);  
   delay(1000);
 }

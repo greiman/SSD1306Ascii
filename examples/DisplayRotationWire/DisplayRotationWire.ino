@@ -1,4 +1,5 @@
-// Simple I2C test for ebay 128x32 oled.
+// Set display remap mode.
+// displayRemap(bool mode) selects normal mode or 180 degree rotation mode.
 
 #include <Wire.h>
 #include "SSD1306Ascii.h"
@@ -17,26 +18,19 @@ void setup() {
   Wire.setClock(400000L);
 
 #if RST_PIN >= 0
-  oled.begin(&Adafruit128x32, I2C_ADDRESS, RST_PIN);
+  oled.begin(&Adafruit128x64, I2C_ADDRESS, RST_PIN);
 #else // RST_PIN >= 0
-  oled.begin(&Adafruit128x32, I2C_ADDRESS);
+  oled.begin(&Adafruit128x64, I2C_ADDRESS);
 #endif // RST_PIN >= 0
-
   oled.setFont(Adafruit5x7);
 
-  uint32_t m = micros();
+  // Use true, normal mode, since default for Adafruit display is remap mode.
+  oled.displayRemap(true);
+
   oled.clear();
-  // first row
-  oled.println("set1X test");
-
-  // second row
-  oled.set2X();
-  oled.println("set2X test");
-
-  // third row
-  oled.set1X();
-  oled.print("micros: ");
-  oled.print(micros() - m);
+  oled.println("Hello world!");
+  oled.println("displayRemap(false)");
+  oled.print("for other mode.");
 }
 //------------------------------------------------------------------------------
 void loop() {}
