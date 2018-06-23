@@ -193,6 +193,18 @@ class SSD1306Ascii : public Print {
 #endif  // INCLUDE_SCROLLING
   //----------------------------------------------------------------------------
   /**
+   * @brief Always allow the space character (0x20) to be valid even on fonts
+   * without an explicit encoding for the space character. The default is false.
+   * This will be most useful for fixed-sized fonts when: (1) Printing numbers
+   * which are right-justified with leading spaces instead of leading zeros; (2)
+   * Blinking letters by overwriting them with the space character.
+   *
+   * @param[in] alwaysAllowSpace set true to allow space character
+   */
+  void alwaysAllowSpace(bool alwaysAllowSpace) {
+    m_alwaysAllowSpace = alwaysAllowSpace;
+  }
+  /**
    * @brief Determine the spacing of a character. Spacing is width + space.
    *
    * @param[in] c Character code.
@@ -477,5 +489,6 @@ class SSD1306Ascii : public Print {
   const uint8_t* m_font = nullptr;  // Current font.
   uint8_t m_invertMask = 0;  // font invert mask
   uint8_t m_magFactor = 1;   // Magnification factor.
+  bool m_alwaysAllowSpace = false;  // Always write the space char for all fonts
 };
 #endif  // SSD1306Ascii_h

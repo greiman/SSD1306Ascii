@@ -337,27 +337,39 @@ size_t SSD1306Ascii::write(uint8_t ch) {
 #endif  // INCLUDE_SCROLLING
     return 1;
   }
-  // Error if not in font.
+
+  // Error if not in font, with a special case for the space character (0x20).
+  // If alwaysAllowSpace() is enabled, the space character will always be
+  // allowed even for fonts without an encoding for 0x20. The fake space will
+  // have a width of FONT_WIDTH for both fixed-width and proportional fonts.
+  bool fakeSpace = false;
   if (ch < first || (first + count) <= ch) {
-    return 0;
+    if (ch != ' ') return 0;
+    if (!m_alwaysAllowSpace) return 0;
+
+    fakeSpace = true;
   }
-  ch -= first;
+
   uint8_t s = letterSpacing();
   uint8_t thieleShift = 0;
-  if (fontSize() < 2) {
-    // Fixed width font.
-    base += nr*w*ch;
-  } else {
-    if (h & 7) {
-      thieleShift = 8 - (h & 7);
+  if (!fakeSpace) {
+    ch -= first;
+    if (fontSize() < 2) {
+      // Fixed width font.
+      base += nr*w*ch;
+    } else {
+      if (h & 7) {
+        thieleShift = 8 - (h & 7);
+      }
+      uint16_t index = 0;
+      for (uint8_t i = 0; i < ch; i++) {
+        index += readFontByte(base + i);
+      }
+      w = readFontByte(base + ch);
+      base += nr*index + count;
     }
-    uint16_t index = 0;
-    for (uint8_t i = 0; i < ch; i++) {
-      index += readFontByte(base + i);
-    }
-    w = readFontByte(base + ch);
-    base += nr*index + count;
   }
+
   uint8_t scol = m_col;
   uint8_t srow = m_row;
   uint8_t skip = m_skip;
@@ -368,14 +380,18 @@ size_t SSD1306Ascii::write(uint8_t ch) {
         setCursor(scol, m_row + 1);
       }
       for (uint8_t c = 0; c < w; c++) {
-        uint8_t b = readFontByte(base + c + r*w);
+        uint8_t b = fakeSpace ? 0 : readFontByte(base + c + r*w);
         if (thieleShift && (r + 1) == nr) {
           b >>= thieleShift;
         }
         if (m_magFactor == 2) {
-           b = m ?  b >> 4 : b & 0XF;
-           b = readFontByte(scaledNibble + b);
-           ssd1306WriteRamBuf(b);
+          if (fakeSpace) {
+            b = 0;
+          } else {
+            b = m ?  b >> 4 : b & 0XF;
+            b = readFontByte(scaledNibble + b);
+          }
+          ssd1306WriteRamBuf(b);
         }
         ssd1306WriteRamBuf(b);
       }
