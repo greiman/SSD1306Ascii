@@ -40,6 +40,7 @@ void SSD1306Ascii::clear() {
   clear(0, displayWidth() - 1, 0 , displayRows() - 1);
   #if INCLUDE_SCROLLING
   m_scroll = m_scroll ? 1 : 0;
+  m_top = 0;
   ssd1306WriteCmd(SSD1306_SETSTARTLINE | 0);
   #endif  //INCLUDE_SCROLLING
 }
@@ -108,7 +109,8 @@ void SSD1306Ascii::init(const DevType* dev) {
     ssd1306WriteCmd(readFontByte(table + i));
   }
   #if INCLUDE_SCROLLING
-  m_scroll = m_displayHeight != 64 || INCLUDE_SCROLLING < 2 ? 0 : 1;
+  m_scroll = INCLUDE_SCROLLING < 2 ? 0 : 1;
+  m_top = 0;
   #endif  //INCLUDE_SCROLLING
   clear();
 }
@@ -143,12 +145,15 @@ void SSD1306Ascii::setFont(const uint8_t* font) {
 void SSD1306Ascii::setRow(uint8_t row) {
   if (row >= m_displayHeight/8) return;
   m_row = row;
-  ssd1306WriteCmd(SSD1306_SETSTARTPAGE | row);
+#if INCLUDE_SCROLLING
+  ssd1306WriteCmd(SSD1306_SETSTARTPAGE | ((m_row + m_top) % 8));
+#else
+  ssd1306WriteCmd(SSD1306_SETSTARTPAGE | m_row);
+#endif
 }
 //------------------------------------------------------------------------------
 #if INCLUDE_SCROLLING
 void SSD1306Ascii::setScroll(bool enable) {
-  if (m_displayHeight != 64) return;
   clear();
   m_scroll = enable ? 1 : 0;
 }
@@ -185,6 +190,42 @@ size_t SSD1306Ascii::strWidth(const char* str) {
   return sw;
 }
 //------------------------------------------------------------------------------
+#if INCLUDE_SCROLLING
+void SSD1306Ascii::down(int8_t n)
+{
+  m_top = (m_top + n + 8) % 8; // 8 rows in any case
+}
+#endif
+//------------------------------------------------------------------------------
+#if INCLUDE_SCROLLING_SMOOTH
+bool SSD1306Ascii::process ()
+{
+    // 64 lines in ram in any case (any m_displayHeight value)
+    uint16_t top8 = (m_top * 8) % 64;
+    if (m_top_smooth != top8)
+    {
+        unsigned long now = millis();
+        if (now - m_millis_last_smooth > SMOOTH_SCROLL_MS)
+        {
+            m_millis_last_smooth = now;
+            uint16_t comp = (m_top_smooth + 64 - top8) % 64;
+            // comp is near 64 when scrolling down,
+            // and near 0 with scrolling up
+            m_top_smooth = (m_top_smooth + ((comp > 32)? 65: 63)) % 64;
+            ssd1306WriteCmd(SSD1306_SETSTARTLINE | m_top_smooth);
+            if (comp > 16 && comp < 48)
+                // tell user to slow down prints otherwise
+                // scroll will go the other way (will however
+                // stay correct when top is reached)
+                m_too_fast = true;
+        }
+    }
+    else
+        m_too_fast = false;
+    return !m_too_fast;
+}
+#endif // INCLUDE_SCROLLING_SMOOTH
+//------------------------------------------------------------------------------
 size_t SSD1306Ascii::write(uint8_t ch) {
   if (!m_font) {
     return 0;
@@ -205,21 +246,20 @@ size_t SSD1306Ascii::write(uint8_t ch) {
       #if INCLUDE_SCROLLING == 0
       setCursor(0, m_row + m_magFactor*nr);
       #else  // INCLUDE_SCROLLING
-      uint8_t tmp = m_row + m_magFactor*nr;
-      if (tmp >= m_displayHeight/8  && m_scroll) {
-        tmp = 0;
-        m_scroll = 2;
+
+      if (m_row == (m_displayHeight/8) - 1) {
+        // scroll mode: change screen offset
+        down(m_magFactor*nr); // m_top changes
+        setCursor(0, m_row); // m_row does not change, but STARTPAGE does
+        #if !INCLUDE_SCROLLING_SMOOTH
+        // brutal scroll:
+        ssd1306WriteCmd(SSD1306_SETSTARTLINE | (m_top * 8));
+        #endif // !INCLUDE_SCROLLING_SMOOTH
       }
-      setCursor(0, tmp);
-      if (m_scroll > 1) {
-        clearToEOL();
-        tmp +=  m_magFactor*nr;
-        tmp *= 8;
-        if (tmp > m_displayHeight) {
-          tmp = 0;
-        }
-        ssd1306WriteCmd(SSD1306_SETSTARTLINE | tmp);
-      }
+      else
+        setCursor(0, m_row + m_magFactor*nr);
+      clearToEOL();
+
       #endif  // INCLUDE_SCROLLING
       return 1;
     }
