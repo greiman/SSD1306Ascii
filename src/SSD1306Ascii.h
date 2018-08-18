@@ -300,20 +300,33 @@ class SSD1306Ascii : public Print {
    * @return The length of the string.
    */
   size_t write(const char* s);
-  
+  /**
+   * @brief get inversion mode state.
+   *
+   * @return boolean inversion state.
+   */
+  inline bool inv() {return !!m_inv;}
+  /**
+   * @brief Set inversion mode state.
+   *
+   * @param[in] i boolean inversion state.
+   */
+  inline void inv(bool i) {m_inv=i?0xFF:0;}
+
  private:
   uint16_t fontSize();
   virtual void writeDisplay(uint8_t b, uint8_t mode) = 0;
   uint8_t m_col;            // Cursor column.
   uint8_t m_row;            // Cursor RAM row.
-  uint8_t m_displayWidth;   // Display width. 
+  uint8_t m_displayWidth;   // Display width.
   uint8_t m_displayHeight;  // Display height.
   uint8_t m_colOffset;      // Column offset RAM to SEG.
   uint8_t m_letterSpacing;  // lerret-spacing in pixels.
   uint8_t m_magFactor;      // Magnification factor.
-#if INCLUDE_SCROLLING    
-  uint8_t m_scroll;          // Scroll mode 
-#endif  // INCLUDE_SCROLLING    
+#if INCLUDE_SCROLLING
+  uint8_t m_scroll;          // Scroll mode
+#endif  // INCLUDE_SCROLLING
   const uint8_t* m_font;    // Current font.
+  uint8_t m_inv=0x00;
 };
 #endif  // SSD1306Ascii_h
