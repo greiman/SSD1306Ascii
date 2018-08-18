@@ -143,17 +143,11 @@ void SSD1306Ascii::setFont(const uint8_t* font) {
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::setRow(uint8_t row) {
-#if INCLUDE_SCROLLING_SMOOTH
-Serial.printf("row=%d - ", row);
-  if (row > (m_displayHeight / 8) - m_magFactor)
-      row = (m_displayHeight / 8) - m_magFactor;
-Serial.printf("%d\n", row);
-#else // !INCLUDE_SCROLLING_SMOOTH
+#if !INCLUDE_SCROLLING_SMOOTH
   if (row >= m_displayHeight/8) return;
 #endif // !INCLUDE_SCROLLING_SMOOTH
   m_row = row;
 #if INCLUDE_SCROLLING
-  //ssd1306WriteCmd(SSD1306_SETSTARTPAGE | (m_row + m_top));
   ssd1306WriteCmd(SSD1306_SETSTARTPAGE | ((m_row + m_top) % 8));
 #else
   ssd1306WriteCmd(SSD1306_SETSTARTPAGE | m_row);
@@ -201,11 +195,29 @@ size_t SSD1306Ascii::strWidth(const char* str) {
 #if INCLUDE_SCROLLING
 void SSD1306Ascii::down(int8_t n)
 {
-  m_top = (m_top + n * m_magFactor + 8) % 8; // 8 rows in any case
+  // XXX working with system5x7 1X or 2X, need rework for other fonts
+  // m_top in [0..7]
+  m_top = (m_top + (16 + ((n < 0? -1: 1) * m_magFactor))) % 8;
 }
 #endif
 //------------------------------------------------------------------------------
 #if INCLUDE_SCROLLING_SMOOTH
+
+void SSD1306Ascii::scroll (int8_t dir)
+{
+  if (dir < 0)
+  {
+    up();
+    setCursor(0, 0);
+  }
+  else
+  {
+    down();
+    // XXX working with system5x7 1X or 2X, need rework for other fonts
+    setCursor(0, (m_magFactor==1? -1: 1) + (m_displayHeight / fontHeight()));
+  }
+}
+
 bool SSD1306Ascii::process ()
 {
     // need to check everytime whether text (m_top) is updating too fast
@@ -244,6 +256,7 @@ bool SSD1306Ascii::process ()
 
     return !m_too_fast;
 }
+
 #endif // INCLUDE_SCROLLING_SMOOTH
 //------------------------------------------------------------------------------
 size_t SSD1306Ascii::write(uint8_t ch) {

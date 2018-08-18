@@ -56,7 +56,7 @@
  */
 #define INCLUDE_SCROLLING 1
 #define INCLUDE_SCROLLING_SMOOTH 1
-#define SMOOTH_SCROLL_MS 50//10
+#define SMOOTH_SCROLL_MS 25//10
 
 /** Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
@@ -316,6 +316,7 @@ class SSD1306Ascii : public Print {
   size_t write(const char* s);
   
 #if INCLUDE_SCROLLING_SMOOTH
+  void scroll (int8_t dir = +1);
   bool process();
 #else
   inline bool process () { return true; }
