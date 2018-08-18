@@ -56,7 +56,7 @@
  */
 #define INCLUDE_SCROLLING 1
 #define INCLUDE_SCROLLING_SMOOTH 1
-#define SMOOTH_SCROLL_MS 10
+#define SMOOTH_SCROLL_MS 50//10
 
 /** Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
@@ -94,6 +94,7 @@ inline void oledReset(uint8_t rst) {
 class SSD1306Ascii : public Print {
  public:
   SSD1306Ascii() : m_magFactor(1), m_font(0) {}
+  virtual ~SSD1306Ascii() {}
   /**
    * @brief Determine the width of a character.
    *
@@ -269,8 +270,8 @@ class SSD1306Ascii : public Print {
    *       the display.
    */
   void setScroll(bool enable);
-  void down(int8_t nr);
-  void up(int8_t nr) { down(-nr); }
+  void down(int8_t nr = 1);
+  void up(int8_t nr = 1) { down(-nr); }
 #endif  // INCLUDE_SCROLLING   
   /**
    * @brief Write a command byte to the display controller.
@@ -336,7 +337,7 @@ class SSD1306Ascii : public Print {
 #if INCLUDE_SCROLLING_SMOOTH
   bool m_too_fast = false;
   uint8_t m_top_smooth;     // Real scroll offset (STARTLINE).
-  unsigned long m_millis_last_smooth = 0;
+  uint16_t m_millis_last_smooth;
 #endif  // INCLUDE_SCROLLING_SMOOTH
 #endif  // INCLUDE_SCROLLING    
   const uint8_t* m_font;    // Current font.

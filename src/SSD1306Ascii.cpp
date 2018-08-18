@@ -143,9 +143,17 @@ void SSD1306Ascii::setFont(const uint8_t* font) {
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::setRow(uint8_t row) {
+#if INCLUDE_SCROLLING_SMOOTH
+Serial.printf("row=%d - ", row);
+  if (row > (m_displayHeight / 8) - m_magFactor)
+      row = (m_displayHeight / 8) - m_magFactor;
+Serial.printf("%d\n", row);
+#else // !INCLUDE_SCROLLING_SMOOTH
   if (row >= m_displayHeight/8) return;
+#endif // !INCLUDE_SCROLLING_SMOOTH
   m_row = row;
 #if INCLUDE_SCROLLING
+  //ssd1306WriteCmd(SSD1306_SETSTARTPAGE | (m_row + m_top));
   ssd1306WriteCmd(SSD1306_SETSTARTPAGE | ((m_row + m_top) % 8));
 #else
   ssd1306WriteCmd(SSD1306_SETSTARTPAGE | m_row);
@@ -193,35 +201,47 @@ size_t SSD1306Ascii::strWidth(const char* str) {
 #if INCLUDE_SCROLLING
 void SSD1306Ascii::down(int8_t n)
 {
-  m_top = (m_top + n + 8) % 8; // 8 rows in any case
+  m_top = (m_top + n * m_magFactor + 8) % 8; // 8 rows in any case
 }
 #endif
 //------------------------------------------------------------------------------
 #if INCLUDE_SCROLLING_SMOOTH
 bool SSD1306Ascii::process ()
 {
-    // 64 lines in ram in any case (any m_displayHeight value)
-    uint16_t top8 = (m_top * 8) % 64;
-    if (m_top_smooth != top8)
+    // need to check everytime whether text (m_top) is updating too fast
+
+    // 64 lines in ram in any case
+    uint8_t top8 = (m_top * 8) % 64;
+
+    // compare is near 64 when scrolling down,
+    // and near 0 with scrolling up
+    // 0 when no scrolling
+    uint8_t compare = (m_top_smooth + 64 - top8) % 64;
+
+    if (compare == 0)
     {
-        unsigned long now = millis();
-        if (now - m_millis_last_smooth > SMOOTH_SCROLL_MS)
-        {
-            m_millis_last_smooth = now;
-            uint16_t comp = (m_top_smooth + 64 - top8) % 64;
-            // comp is near 64 when scrolling down,
-            // and near 0 with scrolling up
-            m_top_smooth = (m_top_smooth + ((comp > 32)? 65: 63)) % 64;
-            ssd1306WriteCmd(SSD1306_SETSTARTLINE | m_top_smooth);
-            if (comp > 16 && comp < 48)
-                // tell user to slow down prints otherwise
-                // scroll will go the other way (will however
-                // stay correct when top is reached)
-                m_too_fast = true;
-        }
-    }
-    else
+        // stay still
         m_too_fast = false;
+        return true;
+    }
+
+    if (compare >= 8 && compare <= (64-8))
+        // tell user to slow down prints otherwise
+        // scroll will slide the other way (will however
+        // stay correct when top is reached)
+        m_too_fast = true;
+
+    uint16_t now = (uint16_t)millis();
+    if ((uint16_t)(now - m_millis_last_smooth) > SMOOTH_SCROLL_MS)
+    {
+        // time to scroll by one line
+        m_millis_last_smooth = now;
+
+        // increase or decrease scrolling by one pixel line
+        m_top_smooth = (m_top_smooth + ((compare > 32)? 65: 63)) % 64;
+        ssd1306WriteCmd(SSD1306_SETSTARTLINE | m_top_smooth);
+    }
+
     return !m_too_fast;
 }
 #endif // INCLUDE_SCROLLING_SMOOTH
