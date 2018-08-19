@@ -193,11 +193,11 @@ size_t SSD1306Ascii::strWidth(const char* str) {
 }
 //------------------------------------------------------------------------------
 #if INCLUDE_SCROLLING
-void SSD1306Ascii::down(int8_t n)
+void SSD1306Ascii::down (int8_t n)
 {
-  // XXX working with system5x7 1X or 2X, need rework for other fonts
-  // m_top in [0..7]
-  m_top = (m_top + (16 + ((n < 0? -1: 1) * m_magFactor))) % 8;
+  // m_top in [0..7] - 8 lines (of 8 pixel each)
+  uint8_t fh = (fontHeight() + 7) / 8;
+  m_top = (m_top + /*stay positive for %8*/16 + (n * fh)) % 8;
 }
 #endif
 //------------------------------------------------------------------------------
@@ -205,56 +205,54 @@ void SSD1306Ascii::down(int8_t n)
 
 void SSD1306Ascii::scroll (int8_t dir)
 {
-  if (dir < 0)
-  {
-    up();
-    setCursor(0, 0);
-  }
-  else
-  {
-    down();
-    // XXX working with system5x7 1X or 2X, need rework for other fonts
-    setCursor(0, (m_magFactor==1? -1: 1) + (m_displayHeight / fontHeight()));
-  }
+  down(dir);
+  setCursor(0, dir < 0? 0: ((m_displayHeight / 8) - ((fontHeight() + 7) / 8)));
+  m_scroll_dir = dir;
 }
 
 bool SSD1306Ascii::process ()
 {
-    // need to check everytime whether text (m_top) is updating too fast
+  //XXX this could be optimized with more or modified members (like m_top8
+  //    instead of m_top)
 
-    // 64 lines in ram in any case
-    uint8_t top8 = (m_top * 8) % 64;
+  // need to check everytime whether text (m_top) is updating too fast
 
-    // compare is near 64 when scrolling down,
-    // and near 0 with scrolling up
-    // 0 when no scrolling
-    uint8_t compare = (m_top_smooth + 64 - top8) % 64;
+  // 64 lines in ram in any case
+  uint8_t top8 = (m_top * 8) % 64;
 
-    if (compare == 0)
-    {
-        // stay still
-        m_too_fast = false;
-        return true;
-    }
+  // compare is near 64 when scrolling down,
+  // and near 0 with scrolling up
+  // 0 when no scrolling
+  uint8_t compare = (m_top_smooth + 64 - top8) % 64;
 
-    if (compare >= 8 && compare <= (64-8))
-        // tell user to slow down prints otherwise
-        // scroll will slide the other way (will however
-        // stay correct when top is reached)
-        m_too_fast = true;
+  if (compare == 0)
+  {
+    // stay still
+    m_too_fast = false;
+    return true;
+  }
 
-    uint16_t now = (uint16_t)millis();
-    if ((uint16_t)(now - m_millis_last_smooth) > SMOOTH_SCROLL_MS)
-    {
-        // time to scroll by one line
-        m_millis_last_smooth = now;
+  if (compare >= 8 && compare <= (64-8))
+    // tell user to slow down prints otherwise
+    // scroll will slide the other way (will however
+    // stay correct when top is reached)
+    m_too_fast = true;
 
-        // increase or decrease scrolling by one pixel line
-        m_top_smooth = (m_top_smooth + ((compare > 32)? 65: 63)) % 64;
-        ssd1306WriteCmd(SSD1306_SETSTARTLINE | m_top_smooth);
-    }
+  uint16_t now = (uint16_t)millis();
+  if ((uint16_t)(now - m_millis_last_smooth) > SMOOTH_SCROLL_MS)
+  {
+    // time to scroll by one line
+    m_millis_last_smooth = now;
 
-    return !m_too_fast;
+    // increase or decrease scrolling by one pixel line
+    //XXX this works using compare (without m_scroll_dir), but not when font is huge
+    //XXX m_top_smooth = (m_top_smooth + ((compare > 32)? 65: 63)) % 64;
+    m_top_smooth = (m_top_smooth + 64 + m_scroll_dir) % 64;
+
+    ssd1306WriteCmd(SSD1306_SETSTARTLINE | m_top_smooth);
+  }
+
+  return !m_too_fast;
 }
 
 #endif // INCLUDE_SCROLLING_SMOOTH
