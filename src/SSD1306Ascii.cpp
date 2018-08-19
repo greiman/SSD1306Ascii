@@ -162,7 +162,7 @@ void SSD1306Ascii::ssd1306WriteRam(uint8_t c) {
 //-----------------------------------------------------------------------------
 void SSD1306Ascii::ssd1306WriteRamBuf(uint8_t c) {
   if (m_col >= m_displayWidth) return;
-  writeDisplay(c, SSD1306_MODE_RAM_BUF);
+  writeDisplay(c^m_inv, SSD1306_MODE_RAM_BUF);
   m_col++;
 }
 //------------------------------------------------------------------------------
