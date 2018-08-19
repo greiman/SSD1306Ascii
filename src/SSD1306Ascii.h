@@ -305,11 +305,12 @@ class SSD1306Ascii : public Print {
    *
    * @return boolean inversion state.
    */
-  inline bool inv() {return !!m_inv;}
+  inline bool inv() const {return !!m_inv;}
   /**
    * @brief Set inversion mode state.
    *
    * @param[in] i boolean inversion state.
+   *@note toggle with inv(inv())
    */
   inline void inv(bool i) {m_inv=i?0xFF:0;}
 
