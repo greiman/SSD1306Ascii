@@ -47,7 +47,7 @@
  *
  * If INCLUDE_SCROLLING_SMOOTH is defined to be one, smooth scrolling is
  * enabled and user must call ::process() on a regular basis (e.g. on every
- * loop()). In that case, scroll speed is defined by SMOOTH_SCROLL_MS
+ * loop()). In that case, scroll speed is defined by ::process()'s argument
  * (milliseconds for one pixel line).
  * ::process() return value can be ignored.  It returns false when user
  * must slow down prints (if possible) in order to keep a smooth scroll
@@ -56,7 +56,6 @@
  */
 #define INCLUDE_SCROLLING 1
 #define INCLUDE_SCROLLING_SMOOTH 1
-#define SMOOTH_SCROLL_MS 10
 
 /** Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
@@ -315,18 +314,19 @@ class SSD1306Ascii : public Print {
   size_t write(const char* s);
   
 #if INCLUDE_SCROLLING_SMOOTH
-  void scroll (int8_t dir = +1);
-  bool process();
-  bool reasonable () { return fontHeight() < m_displayHeight / 2; }
+  void scroll(int8_t dir = +1);
+  bool process(uint16_t ms);
+  bool reasonable() { return fontHeight() < m_displayHeight / 2; }
 #else
-  inline bool process () { return true; }
+  inline bool process() { return true; }
+  inline bool reasonable() { return true; }
 #endif
 
  private:
   uint16_t fontSize();
   virtual void writeDisplay(uint8_t b, uint8_t mode) = 0;
   uint8_t m_col;            // Cursor column.
-  uint8_t m_row;            // Cursor RAM row (relative to m_top in scroll mode).
+  uint8_t m_row;            // Cursor RAM row (relative to m_pageOffset in scroll mode).
   uint8_t m_displayWidth;   // Display width. 
   uint8_t m_displayHeight;  // Display height.
   uint8_t m_colOffset;      // Column offset RAM to SEG.
@@ -334,14 +334,16 @@ class SSD1306Ascii : public Print {
   uint8_t m_magFactor;      // Magnification factor.
 #if INCLUDE_SCROLLING
   uint8_t m_scroll;         // Scroll mode.
-  uint8_t m_top;            // Scroll offset (STARTLINE/8).
+  uint8_t m_pageOffset;     // m_row origin / scroll offset (page unit)
 #if INCLUDE_SCROLLING_SMOOTH
   bool m_too_fast = false;
-  uint8_t m_top_smooth;     // Real scroll offset (STARTLINE).
-  uint8_t m_scroll_dir;
+  uint8_t m_startline;      // current viewport top (line unit)
+  int8_t m_scroll_dir;      // smooth scrolling direction
   uint16_t m_millis_last_smooth;
 #endif  // INCLUDE_SCROLLING_SMOOTH
-#endif  // INCLUDE_SCROLLING    
+#else   // !INCLUDE_SCROLLING
+  const uint8_t m_pageOffset = 0;
+#endif  // !INCLUDE_SCROLLING
   const uint8_t* m_font;    // Current font.
 };
 #endif  // SSD1306Ascii_h

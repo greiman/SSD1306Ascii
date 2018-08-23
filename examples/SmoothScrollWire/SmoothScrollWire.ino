@@ -76,7 +76,7 @@ void setup ()
 
 void loop ()
 {
-  bool canPrintNow = oled.process();
+  bool canPrintNow = oled.process(10);
 
   if (canPrintNow)
   {
