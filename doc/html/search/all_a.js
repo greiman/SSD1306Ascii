@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['read',['read',['../class_avr_i2c.html#acbe619382b96fe1899bbdf0d808aa124',1,'AvrI2c']]],
-  ['repeatedstart',['repeatedStart',['../class_avr_i2c.html#abf256161193de9acb2235a52a8b422a0',1,'AvrI2c']]],
-  ['row',['row',['../class_s_s_d1306_ascii.html#a502babd83491d2204c514ba79262626b',1,'SSD1306Ascii']]]
+  ['oledreset',['oledReset',['../_s_s_d1306_ascii_8h.html#a2d24b58760aa70ba784ac7a43b2d3b16',1,'SSD1306Ascii.h']]],
+  ['optimize_5fi2c',['OPTIMIZE_I2C',['../_s_s_d1306_ascii_8h.html#a6dad8e64264884e4d7534b237a188e4a',1,'SSD1306Ascii.h']]]
 ];

@@ -39,14 +39,15 @@ class SSD1306AsciiSoftSpi : public SSD1306Ascii {
    * @param[in] cs The display controller chip select pin.
    * @param[in] dc The display controller cdata/command pin.
    * @param[in] clk The SPI clock pin.
-   * @param[in] data The SPI MOSI pin.   
-   */  
-  void begin(const DevType* dev, uint8_t cs, uint8_t dc, uint8_t clk, uint8_t data) {
+   * @param[in] data The SPI MOSI pin.
+   */
+  void begin(const DevType* dev, uint8_t cs,
+             uint8_t dc, uint8_t clk, uint8_t data) {
     m_csPin.begin(cs);
     m_dcPin.begin(dc);
     m_clkPin.begin(clk);
-    m_dataPin.begin(data);    
-    init(dev);    
+    m_dataPin.begin(data);
+    init(dev);
   }
   /**
    * @brief Initialize the display controller.
@@ -56,9 +57,10 @@ class SSD1306AsciiSoftSpi : public SSD1306Ascii {
    * @param[in] dc The display controller cdata/command pin.
    * @param[in] clk The SPI clock pin.
    * @param[in] data The SPI MOSI pin.
-   * @param[in] rst The display controller reset pin.      
-   */    
-  void begin(const DevType* dev, uint8_t cs, uint8_t dc, uint8_t clk, uint8_t data, uint8_t rst) {
+   * @param[in] rst The display controller reset pin.
+   */
+  void begin(const DevType* dev, uint8_t cs,
+             uint8_t dc, uint8_t clk, uint8_t data, uint8_t rst) {
     pinMode(rst, OUTPUT);
     digitalWrite(rst, LOW);
     delay(10);
@@ -66,6 +68,7 @@ class SSD1306AsciiSoftSpi : public SSD1306Ascii {
     delay(10);
     begin(dev, cs, dc, clk, data);
   }
+
  protected:
   void writeDisplay(uint8_t b, uint8_t mode) {
     m_dcPin.write(mode != SSD1306_MODE_CMD);
@@ -77,10 +80,11 @@ class SSD1306AsciiSoftSpi : public SSD1306Ascii {
     }
     m_csPin.write(HIGH);
   }
- private:
+
+ protected:
   DigitalOutput m_csPin;
   DigitalOutput m_dcPin;
   DigitalOutput m_clkPin;
-  DigitalOutput m_dataPin;  
+  DigitalOutput m_dataPin;
 };
-#endif // SSD1306AsciiSoftSpi_h
+#endif  // SSD1306AsciiSoftSpi_h

@@ -20,14 +20,10 @@
 
 /**
 @mainpage Arduino %SSD1306Ascii Library
-<CENTER>Copyright &copy; 2015 by William Greiman
+<CENTER>Copyright &copy; 2015-20018 by William Greiman
 </CENTER>
 
 @section Intro Introduction
-
-This library is in early development so the API and features may change.
-The library is likely to have bugs and be unstable.  The purpose for this 
-release is to get feedback for future development.
 
 The Arduino %SSD1306Ascii Library is designed to display text on small
 monochrome OLED displays.  These displays are available on ebay at
@@ -51,17 +47,21 @@ Support fixed width and proportional fonts.
 
 Optionally magnify fonts by a factor of two.
 
-Support 128x32 and 128x64 displays with I2C and SPI interfaces.  
+Support 128x32 and 128x64 displays with I2C and SPI interfaces.
 
 Use the standard Wire library for I2C.  An optimization option is
 available to increase I2C performance.
 
-Use the standard SPI library for hardware SPI.  An optimization option is
-available for AVR to increase performance and reduce code size.
+Use the standard SPI library for hardware SPI.
 
 Provide software SPI so the display can be connected to any digital pins.
+
+A small AVR only I2C driver is available when no other I2C devices are used. 
  
 @section Install Installation
+
+SSD1306Ascii can be installed using the library manager.  Newer untagged
+versions may be available on GitHub. 
 
 You can manually install the %SSD1306Ascii library by copying the 
 %SSD1306Ascii folder from the download package to the Arduino libraries
@@ -80,35 +80,44 @@ the display.
 
 Scroll mode is configured by editing SSD1306Ascii.h.
 
-If INCLUDE_SCROLLING is defined to be zero, new line will not scroll
+If #INCLUDE_SCROLLING is defined to be zero, new line will not scroll
 the display and code for scrolling will not be included.  This option 
-will save some code space and one byte of RAM.
+will save some code space and several bytes of RAM.
 
-If INCLUDE_SCROLLING is defined to be one, the scroll feature will
-be included but not enabled.  A call to setScroll() will be required
-to enable scrolling.
+If #INCLUDE_SCROLLING is non-zero, the scroll feature will
+be included.
 
-If INCLUDE_SCROLLING is defined to be two, the scroll feature will
-be included and enabled. A call to setScroll() will be required
-to disable scrolling.
+Call SSD1306Ascii::setScrollMode() to change the scrolling mode.
+  
+The initial scroll mode is define by #INITIAL_SCROLL_MODE in SSD1306Ascii.h
 
-Scroll mode is only supported on 64 pixel high displays.
+Scroll mode One of the following.
 
-Call setScroll() to enable or disable scroll mode.
+#SCROLL_MODE_OFF - newline will not scroll the display or RAM window.
 
-Calls to setCursor(), setRow() and other cursor positioning functions 
-will be unpredictable in scroll mode.
+#SCROLL_MODE_AUTO - newline will scroll both the display and RAM windows.
 
-The clear() call will erase the display and start at the top of the display.
+#SCROLL_MODE_APP - newline scrolls the RAM window. 
+The app scrolls the display window.
+
+The SSD1306Ascii::clear() call will erase the display and start at the
+top of the display.
 
 See the ScrollSpi and ScrollWire examples.
+
+More advanced scrolling can be implemented using member functions such as
+SSD1306Ascii::scrollDisplay(), SSD1306Ascii::scrollMemory(), 
+and SSD1306Ascii::scrollIsSynced(). 
+
+Knowledge of the SSD1306 is useful for understanding advanced scrolling. 
+See the SSD1306 data sheet.   
   
 @section Fonts Fonts
 
 Fonts are defined by .h files in the SSD1306Ascii/src/fonts folder.  The fonts 
 folder contains all fonts from openGLCD plus a number of extra fonts.
 
-To select a font, call the setFont() member function like this.
+To select a font, call the SSD1306Ascii::setFont() member function like this.
 @code
   // Select the font used in the Adafruit GFX Graphics Library.
   oled.setFont(Adafruit5x7); 
@@ -171,8 +180,9 @@ Verdana_digits_24
 
 See allFonts.h for more information on adding a font.
 
-The set2X() call doubles the size of characters.  Each pixel becomes a
-2x2 square.  To return to standard size characters call set1X();
+The SSD1306Ascii::set2X() call doubles the size of characters.  Each pixel
+becomes a 2x2 square.  To return to standard size characters call 
+SSD1306Ascii::set1X();
 @code
   oled.set2X();
   // Display double height and width characters.
@@ -196,26 +206,18 @@ These options are at the start of the file.
 /* Set Scrolling mode for new line.
  *
  * If INCLUDE_SCROLLING is defined to be zero, new line will not scroll
- * the display and code for scrolling will not be included.  This option 
- * will save some code space and one byte of RAM.
+ * the display and code for scrolling will not be included.  This option
+ * will save some code space and three bytes of RAM.
  *
- * If INCLUDE_SCROLLING is defined to be one, the scroll feature will
- * be included but not enabled.  A call to setScroll() will be required
- * to enable scrolling.
- *
- * If INCLUDE_SCROLLING is defined to be two, the scroll feature will
- * be included and enabled. A call to setScroll() will be required
- * to disable scrolling.
+ * If INCLUDE_SCROLLING is nonzero, the scroll feature will included.
  */
 #define INCLUDE_SCROLLING 1
 
+/* Initial scroll mode, SCROLL_MODE_OFF, SCROLL_MODE_AUTO, or SCROLL_MODE_APP.*/
+#define INITIAL_SCROLL_MODE SCROLL_MODE_OFF
+
 /* Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
-
-/* Define OPTIMIZE_AVR_SPI non-zero for a faster smaller AVR SPI code.
- * Warning AVR will not use SPI transactions.
- */
-#define OPTIMIZE_AVR_SPI 1
 @endcode
 
 @section Documentation Documentation 

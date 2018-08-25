@@ -65,9 +65,8 @@ $(function() {
 <div class="title">Arduino SSD1306Ascii Library </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><center>Copyright &copy; 2015 by William Greiman </center><h1><a class="anchor" id="Intro"></a>
+<div class="textblock"><center>Copyright &copy; 2015-20018 by William Greiman </center><h1><a class="anchor" id="Intro"></a>
 Introduction</h1>
-<p>This library is in early development so the API and features may change. The library is likely to have bugs and be unstable. The purpose for this release is to get feedback for future development.</p>
 <p>The Arduino SSD1306Ascii Library is designed to display text on small monochrome OLED displays. These displays are available on ebay at very low cost.</p>
 <p>The library is being developed using 0.96" and 1.3" displays with SSD1306 controllers. An initialization sequence for SH1106 controllers is included.</p>
 <p>There are many existing full featured graphics libraries for these displays. The goal for this library is to only display text with minimum use of RAM and flash.</p>
@@ -76,12 +75,14 @@ Introduction</h1>
 <p>Support multiple fonts. More than 40 fonts are included with this release. Fonts are only loaded if you reference them.</p>
 <p>Support fixed width and proportional fonts.</p>
 <p>Optionally magnify fonts by a factor of two.</p>
-<p>Support 128x32 and 128x64 displays with I2C and SPI interfaces. <br />
- Use the standard Wire library for I2C. An optimization option is available to increase I2C performance.</p>
-<p>Use the standard SPI library for hardware SPI. An optimization option is available for AVR to increase performance and reduce code size.</p>
+<p>Support 128x32 and 128x64 displays with I2C and SPI interfaces.</p>
+<p>Use the standard Wire library for I2C. An optimization option is available to increase I2C performance.</p>
+<p>Use the standard SPI library for hardware SPI.</p>
 <p>Provide software SPI so the display can be connected to any digital pins.</p>
+<p>A small AVR only I2C driver is available when no other I2C devices are used.</p>
 <h1><a class="anchor" id="Install"></a>
 Installation</h1>
+<p><a class="el" href="class_s_s_d1306_ascii.html" title="SSD1306 base class. ">SSD1306Ascii</a> can be installed using the library manager. Newer untagged versions may be available on GitHub.</p>
 <p>You can manually install the SSD1306Ascii library by copying the SSD1306Ascii folder from the download package to the Arduino libraries folder in your sketch folder.</p>
 <p>See the Manual installation section of this guide.</p>
 <p><a href="http://arduino.cc/en/Guide/Libraries">http://arduino.cc/en/Guide/Libraries</a></p>
@@ -90,18 +91,23 @@ Installation</h1>
 Scroll Mode</h1>
 <p>Scroll mode causes the display to scroll up when a new line is written to the display.</p>
 <p>Scroll mode is configured by editing <a class="el" href="_s_s_d1306_ascii_8h.html" title="Base class for ssd1306 displays. ">SSD1306Ascii.h</a>.</p>
-<p>If INCLUDE_SCROLLING is defined to be zero, new line will not scroll the display and code for scrolling will not be included. This option will save some code space and one byte of RAM.</p>
-<p>If INCLUDE_SCROLLING is defined to be one, the scroll feature will be included but not enabled. A call to setScroll() will be required to enable scrolling.</p>
-<p>If INCLUDE_SCROLLING is defined to be two, the scroll feature will be included and enabled. A call to setScroll() will be required to disable scrolling.</p>
-<p>Scroll mode is only supported on 64 pixel high displays.</p>
-<p>Call setScroll() to enable or disable scroll mode.</p>
-<p>Calls to setCursor(), setRow() and other cursor positioning functions will be unpredictable in scroll mode.</p>
-<p>The clear() call will erase the display and start at the top of the display.</p>
+<p>If <a class="el" href="_s_s_d1306_ascii_8h.html#ac0de102de39ccaab02096339b6ea9ec3">INCLUDE_SCROLLING</a> is defined to be zero, new line will not scroll the display and code for scrolling will not be included. This option will save some code space and several bytes of RAM.</p>
+<p>If <a class="el" href="_s_s_d1306_ascii_8h.html#ac0de102de39ccaab02096339b6ea9ec3">INCLUDE_SCROLLING</a> is non-zero, the scroll feature will be included.</p>
+<p>Call <a class="el" href="class_s_s_d1306_ascii.html#aff6c1dee783c665194d5eff6a1881e6a" title="Set scroll mode. ">SSD1306Ascii::setScrollMode()</a> to change the scrolling mode.</p>
+<p>The initial scroll mode is define by <a class="el" href="_s_s_d1306_ascii_8h.html#a0d9ee90aff33dec356c3f4a059618bac">INITIAL_SCROLL_MODE</a> in <a class="el" href="_s_s_d1306_ascii_8h.html" title="Base class for ssd1306 displays. ">SSD1306Ascii.h</a></p>
+<p>Scroll mode One of the following.</p>
+<p><a class="el" href="_s_s_d1306_ascii_8h.html#a9e96f01e8966e1c609a12489b5b87f64">SCROLL_MODE_OFF</a> - newline will not scroll the display or RAM window.</p>
+<p><a class="el" href="_s_s_d1306_ascii_8h.html#affb0995026a742d33c297184db344563">SCROLL_MODE_AUTO</a> - newline will scroll both the display and RAM windows.</p>
+<p><a class="el" href="_s_s_d1306_ascii_8h.html#ac549e6e69b35e18d538234eb4dc09f67">SCROLL_MODE_APP</a> - newline scrolls the RAM window. The app scrolls the display window.</p>
+<p>The <a class="el" href="class_s_s_d1306_ascii.html#adbe509084bf81c4e31392a726c76c4a3" title="Clear the display and set the cursor to (0, 0). ">SSD1306Ascii::clear()</a> call will erase the display and start at the top of the display.</p>
 <p>See the ScrollSpi and ScrollWire examples.</p>
+<p>More advanced scrolling can be implemented using member functions such as <a class="el" href="class_s_s_d1306_ascii.html#a97ea2d9d54bbea6be06ec135720dee98" title="Scroll the Display window. ">SSD1306Ascii::scrollDisplay()</a>, <a class="el" href="class_s_s_d1306_ascii.html#a163f89185df51d03ab08514607d70278" title="Scroll the RAM window. ">SSD1306Ascii::scrollMemory()</a>, and <a class="el" href="class_s_s_d1306_ascii.html#aa1a6e675534842911bb7080e39edbdee">SSD1306Ascii::scrollIsSynced()</a>.</p>
+<p>Knowledge of the SSD1306 is useful for understanding advanced scrolling. See the SSD1306 data sheet. <br />
+ </p>
 <h1><a class="anchor" id="Fonts"></a>
 Fonts</h1>
 <p>Fonts are defined by .h files in the SSD1306Ascii/src/fonts folder. The fonts folder contains all fonts from openGLCD plus a number of extra fonts.</p>
-<p>To select a font, call the setFont() member function like this. </p><div class="fragment"><div class="line"><span class="comment">// Select the font used in the Adafruit GFX Graphics Library.</span></div><div class="line">oled.setFont(Adafruit5x7); </div></div><!-- fragment --><p> Only fonts referenced in your program will be loaded into flash.</p>
+<p>To select a font, call the <a class="el" href="class_s_s_d1306_ascii.html#a1129bcc81e4a46a32a01825b7b8a5cf3" title="Set the current font. ">SSD1306Ascii::setFont()</a> member function like this. </p><div class="fragment"><div class="line"><span class="comment">// Select the font used in the Adafruit GFX Graphics Library.</span></div><div class="line">oled.setFont(Adafruit5x7); </div></div><!-- fragment --><p> Only fonts referenced in your program will be loaded into flash.</p>
 <p>Here are symbols for fixed width fonts. </p><pre class="fragment">Adafruit5x7
 cp437font8x8
 fixed_bold10x15
@@ -147,12 +153,12 @@ Verdana12
 Verdana12_bold
 Verdana12_italic
 Verdana_digits_24
-</pre><p>See allFonts.h for more information on adding a font.</p>
-<p>The set2X() call doubles the size of characters. Each pixel becomes a 2x2 square. To return to standard size characters call set1X(); </p><div class="fragment"><div class="line">oled.set2X();</div><div class="line"><span class="comment">// Display double height and width characters.</span></div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="comment">// Return to standard size.</span></div><div class="line">oled.set1X();</div></div><!-- fragment --><h1><a class="anchor" id="config"></a>
+</pre><p>See <a class="el" href="all_fonts_8h.html" title="Font definitions. ">allFonts.h</a> for more information on adding a font.</p>
+<p>The <a class="el" href="class_s_s_d1306_ascii.html#a37623fdc8396b3054ae14f66e47dbd30" title="Set the character magnification factor to two. ">SSD1306Ascii::set2X()</a> call doubles the size of characters. Each pixel becomes a 2x2 square. To return to standard size characters call <a class="el" href="class_s_s_d1306_ascii.html#a3c0182f72bb352c3bbeeeff4f42bf253" title="Set the character magnification factor to one. ">SSD1306Ascii::set1X()</a>; </p><div class="fragment"><div class="line">oled.set2X();</div><div class="line"><span class="comment">// Display double height and width characters.</span></div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="comment">// Return to standard size.</span></div><div class="line">oled.set1X();</div></div><!-- fragment --><h1><a class="anchor" id="config"></a>
 SSD1306Ascii Configuration</h1>
 <p>Several configuration options may be changed by editing the <a class="el" href="_s_s_d1306_ascii_8h.html" title="Base class for ssd1306 displays. ">SSD1306Ascii.h</a> file in the SSD1306Ascii/src folder.</p>
 <p>These options are at the start of the file.</p>
-<div class="fragment"><div class="line"><span class="comment">// Configuration options.</span></div><div class="line"><span class="comment">/* Set Scrolling mode for new line.</span></div><div class="line"><span class="comment">  </span></div><div class="line"><span class="comment"> * If INCLUDE_SCROLLING is defined to be zero, new line will not scroll</span></div><div class="line"><span class="comment"> * the display and code for scrolling will not be included.  This option </span></div><div class="line"><span class="comment"> * will save some code space and one byte of RAM.</span></div><div class="line"><span class="comment">  </span></div><div class="line"><span class="comment"> * If INCLUDE_SCROLLING is defined to be one, the scroll feature will</span></div><div class="line"><span class="comment"> * be included but not enabled.  A call to setScroll() will be required</span></div><div class="line"><span class="comment"> * to enable scrolling.</span></div><div class="line"><span class="comment">  </span></div><div class="line"><span class="comment"> * If INCLUDE_SCROLLING is defined to be two, the scroll feature will</span></div><div class="line"><span class="comment"> * be included and enabled. A call to setScroll() will be required</span></div><div class="line"><span class="comment"> * to disable scrolling.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="preprocessor">#define INCLUDE_SCROLLING 1</span></div><div class="line"></div><div class="line"><span class="comment">/* Use larger faster I2C code. */</span></div><div class="line"><span class="preprocessor">#define OPTIMIZE_I2C 1</span></div><div class="line"></div><div class="line"><span class="comment">/* Define OPTIMIZE_AVR_SPI non-zero for a faster smaller AVR SPI code.</span></div><div class="line"><span class="comment"> * Warning AVR will not use SPI transactions.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="preprocessor">#define OPTIMIZE_AVR_SPI 1</span></div></div><!-- fragment --><h1><a class="anchor" id="Documentation"></a>
+<div class="fragment"><div class="line"><span class="comment">// Configuration options.</span></div><div class="line"><span class="comment">/* Set Scrolling mode for new line.</span></div><div class="line"><span class="comment">  </span></div><div class="line"><span class="comment"> * If INCLUDE_SCROLLING is defined to be zero, new line will not scroll</span></div><div class="line"><span class="comment"> * the display and code for scrolling will not be included.  This option</span></div><div class="line"><span class="comment"> * will save some code space and three bytes of RAM.</span></div><div class="line"><span class="comment">  </span></div><div class="line"><span class="comment"> * If INCLUDE_SCROLLING is nonzero, the scroll feature will included.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="preprocessor">#define INCLUDE_SCROLLING 1</span></div><div class="line"></div><div class="line"><span class="comment">/* Initial scroll mode, SCROLL_MODE_OFF, SCROLL_MODE_AUTO, or SCROLL_MODE_APP.*/</span></div><div class="line"><span class="preprocessor">#define INITIAL_SCROLL_MODE SCROLL_MODE_OFF</span></div><div class="line"></div><div class="line"><span class="comment">/* Use larger faster I2C code. */</span></div><div class="line"><span class="preprocessor">#define OPTIMIZE_I2C 1</span></div></div><!-- fragment --><h1><a class="anchor" id="Documentation"></a>
 Documentation</h1>
 <p>Please see the Classes tab for more information.</p>
 <p>For I2C displays using the wire library Wire see the <a class="el" href="class_s_s_d1306_ascii_wire.html" title="Class for I2C displays using Wire. ">SSD1306AsciiWire</a> class.</p>
@@ -170,7 +176,7 @@ Examples</h1>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jun 10 2018 08:59:22 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 25 2018 07:44:11 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

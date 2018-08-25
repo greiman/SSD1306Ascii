@@ -63,8 +63,8 @@ class AvrI2c {
   void begin(bool fastMode = true) {
     // Zero prescaler.
     TWSR = 0;
-    // Set bit rate factor.
-    TWBR = fastMode ? (F_CPU/400000 - 16)/2 : (F_CPU/100000 - 16)/2;
+    // Set bit rate.
+    setClock(fastMode && F_CPU > 15000000 ? 400000 : 100000);
   }
   /**
    * @brief Read a byte and send Ack if more reads follow else
@@ -89,6 +89,15 @@ class AvrI2c {
     return start(addressRW);
   }
   /**
+   * @brief Set the I2C bit rate.
+   *
+   * @param[in] frequency Desired frequency in Hz.
+   *            Valid range for a 16 MHz board is about 40 kHz to 444,000 kHz.
+   */
+  void setClock(uint32_t frequency) {
+    TWBR = ((F_CPU / frequency) - 16) / 2;
+  }
+  /**
    * @brief Issue a start condition.
    *
    * @param[in] addressRW I2C address with read/write bit.
@@ -97,7 +106,7 @@ class AvrI2c {
    */
   bool start(uint8_t addressRW) {
     // send START condition
-    execCmd((1<<TWINT) | (1<<TWSTA) | (1<<TWEN));
+    execCmd((1 << TWINT) | (1 << TWSTA) | (1 << TWEN));
     if (status() != TWSR_START && status() != TWSR_REP_START) {
       return false;
     }
@@ -117,7 +126,7 @@ class AvrI2c {
     TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
 
     // wait until stop condition is executed and bus released
-    while (TWCR & (1 << TWSTO));
+    while (TWCR & (1 << TWSTO)) {}
   }
   /**
    * @brief Write a byte.
@@ -139,7 +148,7 @@ class AvrI2c {
     // send command
     TWCR = cmdReg;
     // wait for command to complete
-    while (!(TWCR & (1 << TWINT)));
+    while (!(TWCR & (1 << TWINT))) {}
     // status bits.
     status_ = TWSR & 0xF8;
   }

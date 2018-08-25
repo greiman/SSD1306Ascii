@@ -25,13 +25,10 @@ void setup() {
   oled.setFont(System5x7);
   
   #if INCLUDE_SCROLLING == 0
-  #error INCLUDE_SCROLLING must be non-zero. Edit SSD1306Ascii.h
-  #elif INCLUDE_SCROLLING == 1
-  // Scrolling is not enable by default for INCLUDE_SCROLLING set to one.
-  oled.setScroll(true);
-  #else  // INCLUDE_SCROLLING
-  // Scrolling is enable by default for INCLUDE_SCROLLING greater than one.
-  #endif
+  #error INCLUDE_SCROLLING must be non-zero.  Edit SSD1306Ascii.h
+  #endif //  INCLUDE_SCROLLING
+  // Set auto scrolling at end of window.
+  oled.setScrollMode(SCROLL_MODE_AUTO);
   
   for (int i = 0; i <= 20; i++) {
     if (i == 10) {

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['include_5fscrolling',['INCLUDE_SCROLLING',['../_s_s_d1306_ascii_8h.html#ac0de102de39ccaab02096339b6ea9ec3',1,'SSD1306Ascii.h']]]
+  ['avri2c_5ffastmode',['AVRI2C_FASTMODE',['../_s_s_d1306_ascii_8h.html#a61d56be7dc9a4de5f91eda1b646e9f3f',1,'SSD1306Ascii.h']]]
 ];

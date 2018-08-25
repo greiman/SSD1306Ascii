@@ -42,25 +42,25 @@ class SSD1306AsciiWire : public SSD1306Ascii {
     m_nData = 0;
 #endif  // OPTIMIZE_I2C
     m_i2cAddr = i2cAddr;
-    init(dev);    
+    init(dev);
   }
   /**
    * @brief Initialize the display controller.
    *
    * @param[in] dev A device initialization structure.
    * @param[in] i2cAddr The I2C address of the display controller.
-   * @param[in] rst The display controller reset pin.   
-   */  
-  void begin(const DevType* dev, uint8_t i2cAddr, uint8_t rst) { 
+   * @param[in] rst The display controller reset pin.
+   */
+  void begin(const DevType* dev, uint8_t i2cAddr, uint8_t rst) {
     oledReset(rst);
-    begin(dev, i2cAddr);  
-  }  
+    begin(dev, i2cAddr);
+  }
   /**
    * @brief Set the I2C clock rate to 400 kHz.
    * Deprecated use Wire.setClock(400000L)
    */
-  void set400kHz() __attribute__ ((deprecated("use Wire.setClock(400000L)"))) {
-    Wire.setClock(400000L);   
+  void set400kHz() __attribute__((deprecated("use Wire.setClock(400000L)"))) {
+    Wire.setClock(400000L);
   }
 
  protected:
@@ -76,19 +76,20 @@ class SSD1306AsciiWire : public SSD1306Ascii {
     }
     Wire.write(b);
     if (mode == SSD1306_MODE_RAM_BUF) {
-      m_nData++; 
-    }else {      
+      m_nData++;
+    } else {
       Wire.endTransmission();
       m_nData = 0;
     }
-#else  // OPTIMIZE_I2C    
+#else  // OPTIMIZE_I2C
     Wire.beginTransmission(m_i2cAddr);
     Wire.write(mode == SSD1306_MODE_CMD ? 0X00: 0X40);
     Wire.write(b);
     Wire.endTransmission();
 #endif    // OPTIMIZE_I2C
   }
- private:
+
+ protected:
   uint8_t m_i2cAddr;
 #if OPTIMIZE_I2C
   uint8_t m_nData;

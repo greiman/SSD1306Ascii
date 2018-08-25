@@ -19,7 +19,7 @@
  */
 #include "SSD1306Ascii.h"
 //------------------------------------------------------------------------------
-uint8_t SSD1306Ascii::charWidth(uint8_t c) {
+uint8_t SSD1306Ascii::charWidth(uint8_t c) const {
   if (!m_font) {
     return 0;
   }
@@ -37,11 +37,11 @@ uint8_t SSD1306Ascii::charWidth(uint8_t c) {
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::clear() {
+#if INCLUDE_SCROLLING
+  m_pageOffset = 0;
+  setStartLine(0);
+#endif  // INCLUDE_SCROLLING
   clear(0, displayWidth() - 1, 0 , displayRows() - 1);
-  #if INCLUDE_SCROLLING
-  m_scroll = m_scroll ? 1 : 0;
-  ssd1306WriteCmd(SSD1306_SETSTARTLINE | 0);
-  #endif  //INCLUDE_SCROLLING
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::clear(uint8_t c0, uint8_t c1, uint8_t r0, uint8_t r1) {
@@ -56,7 +56,7 @@ void SSD1306Ascii::clear(uint8_t c0, uint8_t c1, uint8_t r0, uint8_t r1) {
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::clearToEOL() {
-  clear (m_col, displayWidth() - 1, m_row, m_row + fontRows() - 1);
+  clear(m_col, displayWidth() -1, m_row, m_row + fontRows() - 1);
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::clearField(uint8_t col, uint8_t row, uint8_t n) {
@@ -72,34 +72,38 @@ size_t SSD1306Ascii::fieldWidth(uint8_t n) {
   return n*(fontWidth() + letterSpacing());
 }
 //------------------------------------------------------------------------------
-uint8_t SSD1306Ascii::fontCharCount() {
-  return m_font ? readFontByte(m_font + FONT_CHAR_COUNT) : 0;  
+uint8_t SSD1306Ascii::fontCharCount() const {
+  return m_font ? readFontByte(m_font + FONT_CHAR_COUNT) : 0;
 }
 //------------------------------------------------------------------------------
-char SSD1306Ascii::fontFirstChar() {
-  return m_font ? readFontByte(m_font + FONT_FIRST_CHAR) : 0;    
+char SSD1306Ascii::fontFirstChar() const {
+  return m_font ? readFontByte(m_font + FONT_FIRST_CHAR) : 0;
 }
 //------------------------------------------------------------------------------
-uint8_t SSD1306Ascii::fontHeight() {
+uint8_t SSD1306Ascii::fontHeight() const {
   return m_font ? m_magFactor*readFontByte(m_font + FONT_HEIGHT) : 0;
 }
 //------------------------------------------------------------------------------
-uint16_t SSD1306Ascii::fontSize() {
+uint8_t SSD1306Ascii::fontRows() const {
+  return m_font ? m_magFactor*((readFontByte(m_font + FONT_HEIGHT) + 7)/8) : 0;
+}
+//------------------------------------------------------------------------------
+uint16_t SSD1306Ascii::fontSize() const {
   return (readFontByte(m_font) << 8) | readFontByte(m_font + 1);
 }
 //------------------------------------------------------------------------------
-uint8_t SSD1306Ascii::fontWidth() {
+uint8_t SSD1306Ascii::fontWidth() const {
   return m_font ? m_magFactor*readFontByte(m_font + FONT_WIDTH) : 0;
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::init(const DevType* dev) {
   m_col = 0;
   m_row = 0;
-  #ifdef __AVR__
+#ifdef __AVR__
   const uint8_t* table = (const uint8_t*)pgm_read_word(&dev->initcmds);
-  #else  // __AVR__
+#else  // __AVR__
   const uint8_t* table = dev->initcmds;
-  #endif  // __AVR
+#endif  // __AVR
   uint8_t size = readFontByte(&dev->initSize);
   m_displayWidth = readFontByte(&dev->lcdWidth);
   m_displayHeight = readFontByte(&dev->lcdHeight);
@@ -107,10 +111,11 @@ void SSD1306Ascii::init(const DevType* dev) {
   for (uint8_t i = 0; i < size; i++) {
     ssd1306WriteCmd(readFontByte(table + i));
   }
-  #if INCLUDE_SCROLLING
-  m_scroll = m_displayHeight != 64 || INCLUDE_SCROLLING < 2 ? 0 : 1;
-  #endif  //INCLUDE_SCROLLING
   clear();
+}
+//------------------------------------------------------------------------------
+void SSD1306Ascii::invertDisplay(bool invert) {
+  ssd1306WriteCmd(invert ? SSD1306_INVERTDISPLAY : SSD1306_NORMALDISPLAY);
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::setCol(uint8_t col) {
@@ -141,28 +146,38 @@ void SSD1306Ascii::setFont(const uint8_t* font) {
 }
 //------------------------------------------------------------------------------
 void SSD1306Ascii::setRow(uint8_t row) {
-  if (row >= m_displayHeight/8) return;
+  if (row >= displayRows()) {
+    return;
+  }
   m_row = row;
-  ssd1306WriteCmd(SSD1306_SETSTARTPAGE | row);
+#if INCLUDE_SCROLLING
+  ssd1306WriteCmd(SSD1306_SETSTARTPAGE | ((m_row + m_pageOffset) & 7));
+#else  // INCLUDE_SCROLLING
+  ssd1306WriteCmd(SSD1306_SETSTARTPAGE | m_row);
+#endif  // INCLUDE_SCROLLING
+}
+#if INCLUDE_SCROLLING
+//------------------------------------------------------------------------------
+void SSD1306Ascii::setPageOffset(uint8_t page) {
+  m_pageOffset = page & 7;
+  setRow(m_row);
 }
 //------------------------------------------------------------------------------
-#if INCLUDE_SCROLLING
-void SSD1306Ascii::setScroll(bool enable) {
-  if (m_displayHeight != 64) return;
-  clear();
-  m_scroll = enable ? 1 : 0;
+void SSD1306Ascii::setStartLine(uint8_t line) {
+  m_startLine = line & 0X3F;
+  ssd1306WriteCmd(SSD1306_SETSTARTLINE | m_startLine);
 }
 #endif   // INCLUDE_SCROLLING
 //-----------------------------------------------------------------------------
 void SSD1306Ascii::ssd1306WriteRam(uint8_t c) {
   if (m_col >= m_displayWidth) return;
-  writeDisplay(c, SSD1306_MODE_RAM);
+  writeDisplay(c^m_invertMask, SSD1306_MODE_RAM);
   m_col++;
 }
 //-----------------------------------------------------------------------------
 void SSD1306Ascii::ssd1306WriteRamBuf(uint8_t c) {
   if (m_col >= m_displayWidth) return;
-  writeDisplay(c, SSD1306_MODE_RAM_BUF);
+  writeDisplay(c^m_invertMask, SSD1306_MODE_RAM_BUF);
   m_col++;
 }
 //------------------------------------------------------------------------------
@@ -173,7 +188,7 @@ GLCDFONTDECL(scaledNibble) = {
   0XF0, 0XF3, 0XFC, 0XFF
 };
 //------------------------------------------------------------------------------
-size_t SSD1306Ascii::strWidth(const char* str) {
+size_t SSD1306Ascii::strWidth(const char* str) const {
   size_t sw = 0;
   while (*str) {
     uint8_t cw = charWidth(*str++);
@@ -202,25 +217,26 @@ size_t SSD1306Ascii::write(uint8_t ch) {
       return 1;
     }
     if (ch == '\n') {
-      #if INCLUDE_SCROLLING == 0
-      setCursor(0, m_row + m_magFactor*nr);
-      #else  // INCLUDE_SCROLLING
-      uint8_t tmp = m_row + m_magFactor*nr;
-      if (tmp >= m_displayHeight/8  && m_scroll) {
-        tmp = 0;
-        m_scroll = 2;
-      }
-      setCursor(0, tmp);
-      if (m_scroll > 1) {
+      setCol(0);
+      uint8_t fr = m_magFactor*nr;
+#if INCLUDE_SCROLLING
+      uint8_t dr = displayRows();
+      uint8_t tmpRow = m_row + fr;
+      int8_t delta = tmpRow + fr - dr;
+      if (m_scrollMode == SCROLL_MODE_OFF || delta <= 0) {
+        setRow(tmpRow);
+      } else {
+        m_pageOffset = (m_pageOffset + delta)&7;
+        m_row  = dr - fr;
+        // Cursor will be positioned by clearToEOL.
         clearToEOL();
-        tmp +=  m_magFactor*nr;
-        tmp *= 8;
-        if (tmp > m_displayHeight) {
-          tmp = 0;
+        if (m_scrollMode == SCROLL_MODE_AUTO) {
+          setStartLine(8*m_pageOffset);
         }
-        ssd1306WriteCmd(SSD1306_SETSTARTLINE | tmp);
       }
-      #endif  // INCLUDE_SCROLLING
+#else  // INCLUDE_SCROLLING
+      setRow(m_row + fr);
+#endif  // INCLUDE_SCROLLING
       return 1;
     }
     return 0;
