@@ -20,11 +20,10 @@ int dir = 1;   // Scroll direction.
 uint32_t scrollTime = 0;
 //------------------------------------------------------------------------------
 void setup () {
-  Serial.begin(9600);
   Wire.begin();
   Wire.setClock(400000L);
 
-// MicroOLED64x48 or Adafruit128x32 work well.
+  // MicroOLED64x48 or Adafruit128x32 work well.
 #if RST_PIN >= 0
   oled.begin(&Adafruit128x32, I2C_ADDRESS, RST_PIN);
 #else // RST_PIN >= 0
@@ -32,13 +31,13 @@ void setup () {
 #endif // RST_PIN >= 0
   oled.setFont(System5x7);
   oled.clear();
-  
+
   // Not really needed since newline will not scroll the display in this example.
   oled.setScrollMode(SCROLL_MODE_APP);
 
-  oled.print("Smooth\nScrolling\n\demo");
-   delay(3000);
-   
+  oled.print("Smooth\nScrolling\ndemo");
+  delay(3000);
+
   // Set cursor to last row of window.
   oled.setRow(oled.displayRows() - oled.fontRows());
 }
@@ -51,7 +50,7 @@ void loop () {
       oled.scrollDisplay(dir);
       scrollTime = now;
     }
-  // Reduce flicker by allowing display to scroll before writing.    
+    // Reduce flicker by allowing display to scroll before writing.
   } else if ((millis() - scrollTime) > 15) {
     // Done if screen is blank.
     if (blank*oled.fontRows() > oled.displayRows()) {
@@ -62,17 +61,17 @@ void loop () {
       dir = -dir;
       // Set font magnification.
       if (dir > 0) {
-       if (oled.magFactor() == 1) {
-         oled.set2X();
-       } else {
-         oled.set1X();
-       }
+        if (oled.magFactor() == 1) {
+          oled.set2X();
+        } else {
+          oled.set1X();
+        }
       }
       // Set cursor to first or last line of memory window.
-      oled.setCursor(0, dir < 0 ? 0 : oled.displayRows() - oled.fontRows());      
-    } 
+      oled.setCursor(0, dir < 0 ? 0 : oled.displayRows() - oled.fontRows());
+    }
     // Scroll memory window.
-    oled.scrollMemory(dir*oled.fontRows());  
+    oled.scrollMemory(dir*oled.fontRows());
     oled.setCol(0);
     if (count*oled.fontRows() <= oled.displayRows()) {
       oled.print(dir < 0 ? "DN " : "UP ");

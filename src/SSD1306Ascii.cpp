@@ -49,7 +49,8 @@ void SSD1306Ascii::clear(uint8_t c0, uint8_t c1, uint8_t r0, uint8_t r1) {
   for (uint8_t r = r0; r <= r1; r++) {
     setCursor(c0, r);
     for (uint8_t c = c0; c <= c1; c++) {
-      ssd1306WriteRamBuf(0);
+      // Insure clear() writes zero. result is (m_invertMask^m_invertMask).
+      ssd1306WriteRamBuf(m_invertMask);
     }
   }
   setCursor(c0, r0);
@@ -226,7 +227,7 @@ size_t SSD1306Ascii::write(uint8_t ch) {
       if (m_scrollMode == SCROLL_MODE_OFF || delta <= 0) {
         setRow(tmpRow);
       } else {
-        m_pageOffset = (m_pageOffset + delta)&7;
+        m_pageOffset = (m_pageOffset + delta) & 7;
         m_row  = dr - fr;
         // Cursor will be positioned by clearToEOL.
         clearToEOL();
