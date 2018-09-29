@@ -75,6 +75,8 @@
 #define SSD1306_SETDISPLAYCLOCKDIV 0xD5
 /** Set Pre-charge Period */
 #define SSD1306_SETPRECHARGE 0xD9
+/** Deactivate scroll */
+#define SSD1306_DEACTIVATE_SCROLL 0x2E
 /** No Operation Command. */
 #define SSD1306_NOP 0XE3
 //------------------------------------------------------------------------------
@@ -140,6 +142,38 @@ static const DevType MEM_TYPE MicroOLED64x48 = {
   64,
   48,
   32
+};
+//------------------------------------------------------------------------------
+// this section is based on
+// https://github.com/olikraus/u8g2/blob/master/csrc/u8x8_d_ssd1306_96x16.c
+/** Initialization commands for a 96x16 SSD1306 oled display. */
+static const uint8_t MEM_TYPE SSD1306_96x16init[] = {
+    // Init sequence for Generic 96x16 OLED module
+    SSD1306_DISPLAYOFF,
+    SSD1306_SETDISPLAYCLOCKDIV, 0x80, // clock divide ratio and osc frequency
+    SSD1306_SETMULTIPLEX, 0x0F,       // multiplex ratio
+    SSD1306_SETDISPLAYOFFSET, 0x0,    // display offset zero
+    SSD1306_SETSTARTLINE | 0x0,       // set display start line to 0
+    SSD1306_CHARGEPUMP, 0x14,         // charge pump setting enable
+    SSD1306_MEMORYMODE, 0x00,         // page addressing mode
+    SSD1306_SEGREMAP | 0xA1,          // segment remap
+    SSD1306_COMSCANDEC,               // scan dir reverse
+    SSD1306_SETCOMPINS, 0x02,         // com pin HW config
+    SSD1306_SETCONTRAST, 0xAF,        // set contrast level 0xaf
+    SSD1306_SETPRECHARGE, 0xF1,       // pre-charge period 0x0f1
+    SSD1306_SETVCOMDETECT, 0x20,      // vcomh deselect level
+    SSD1306_DEACTIVATE_SCROLL,        //  Deactivate scroll
+    SSD1306_DISPLAYALLON_RESUME,
+    SSD1306_NORMALDISPLAY,
+    SSD1306_DISPLAYON
+};
+/* Initialize a 96x16 SSD1306 oled display. */
+static const DevType MEM_TYPE SSD1306_96x16 = {
+  SSD1306_96x16init,
+  sizeof(SSD1306_96x16init),
+  96,
+  16,
+  0
 };
 //------------------------------------------------------------------------------
 // this section is based on https://github.com/adafruit/Adafruit_SSD1306
