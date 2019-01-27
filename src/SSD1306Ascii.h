@@ -86,6 +86,7 @@ inline void oledReset(uint8_t rst) {
  */
 class SSD1306Ascii : public Print {
  public:
+  using Print::write;
   SSD1306Ascii() {}
 #if INCLUDE_SCROLLING
 //------------------------------------------------------------------------------
@@ -367,13 +368,6 @@ class SSD1306Ascii : public Print {
    * @return the value one.
    */
   size_t write(uint8_t c);
-  /**
-   * @brief Display a string.
-   *
-   * @param[in] s The string to display.
-   * @return The length of the string.
-   */
-  size_t write(const char* s);
 
  protected:
   uint16_t fontSize() const;
