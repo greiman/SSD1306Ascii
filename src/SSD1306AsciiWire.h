@@ -32,6 +32,12 @@
 class SSD1306AsciiWire : public SSD1306Ascii {
  public:
   /**
+   * @brief Initialize object on specific I2C bus.
+   *
+   * @param[in] bus The I2C bus to be used.
+   */
+  SSD1306AsciiWire(TwoWire &bus = Wire) : m_wire(bus) {}
+  /**
    * @brief Initialize the display controller.
    *
    * @param[in] dev A device initialization structure.
@@ -60,36 +66,37 @@ class SSD1306AsciiWire : public SSD1306Ascii {
    * Deprecated use Wire.setClock(400000L)
    */
   void set400kHz() __attribute__((deprecated("use Wire.setClock(400000L)"))) {
-    Wire.setClock(400000L);
+    m_wire.setClock(400000L);
   }
 
  protected:
   void writeDisplay(uint8_t b, uint8_t mode) {
 #if OPTIMIZE_I2C
     if (m_nData > 16 || (m_nData && mode == SSD1306_MODE_CMD)) {
-      Wire.endTransmission();
+      m_wire.endTransmission();
       m_nData = 0;
     }
     if (m_nData == 0) {
-      Wire.beginTransmission(m_i2cAddr);
-      Wire.write(mode == SSD1306_MODE_CMD ? 0X00 : 0X40);
+      m_wire.beginTransmission(m_i2cAddr);
+      m_wire.write(mode == SSD1306_MODE_CMD ? 0X00 : 0X40);
     }
-    Wire.write(b);
+    m_wire.write(b);
     if (mode == SSD1306_MODE_RAM_BUF) {
       m_nData++;
     } else {
-      Wire.endTransmission();
+      m_wire.endTransmission();
       m_nData = 0;
     }
 #else  // OPTIMIZE_I2C
-    Wire.beginTransmission(m_i2cAddr);
-    Wire.write(mode == SSD1306_MODE_CMD ? 0X00: 0X40);
-    Wire.write(b);
-    Wire.endTransmission();
+    m_wire.beginTransmission(m_i2cAddr);
+    m_wire.write(mode == SSD1306_MODE_CMD ? 0X00: 0X40);
+    m_wire.write(b);
+    m_wire.endTransmission();
 #endif    // OPTIMIZE_I2C
   }
 
  protected:
+  TwoWire& m_wire;
   uint8_t m_i2cAddr;
 #if OPTIMIZE_I2C
   uint8_t m_nData;
