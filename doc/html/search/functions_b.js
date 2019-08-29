@@ -19,6 +19,7 @@ var searchData=
   ['setscroll',['setScroll',['../class_s_s_d1306_ascii.html#ae6e7e2c25f90ac6a98b5fca7753a4c0b',1,'SSD1306Ascii']]],
   ['setscrollmode',['setScrollMode',['../class_s_s_d1306_ascii.html#aff6c1dee783c665194d5eff6a1881e6a',1,'SSD1306Ascii']]],
   ['setstartline',['setStartLine',['../class_s_s_d1306_ascii.html#a2ec37c0cced265da75f4a776f0642547',1,'SSD1306Ascii']]],
+  ['ssd1306asciiwire',['SSD1306AsciiWire',['../class_s_s_d1306_ascii_wire.html#a71dc9fd6f5e928224e8a38066d1cf211',1,'SSD1306AsciiWire']]],
   ['ssd1306writecmd',['ssd1306WriteCmd',['../class_s_s_d1306_ascii.html#a5535be4d677e052cd14d310dd0416031',1,'SSD1306Ascii']]],
   ['ssd1306writeram',['ssd1306WriteRam',['../class_s_s_d1306_ascii.html#a74c3ff54ac519515575c983458fb6cb4',1,'SSD1306Ascii']]],
   ['ssd1306writerambuf',['ssd1306WriteRamBuf',['../class_s_s_d1306_ascii.html#a2b6bc3838dca4dab0080e555e1c69206',1,'SSD1306Ascii']]],

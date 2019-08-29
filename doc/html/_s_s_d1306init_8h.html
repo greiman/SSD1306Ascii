@@ -113,6 +113,8 @@ Macros</h2></td></tr>
 <tr class="separator:adc99324d6d22a2997b77a63ea6bf2bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a369ae001f8683735d9a4783a4113cce2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306init_8h.html#a369ae001f8683735d9a4783a4113cce2">SSD1306_COMSCANINC</a>&#160;&#160;&#160;0xC0</td></tr>
 <tr class="separator:a369ae001f8683735d9a4783a4113cce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a227f3a6e509369f291fae65eb8c97bf6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306init_8h.html#a227f3a6e509369f291fae65eb8c97bf6">SSD1306_DEACTIVATE_SCROLL</a>&#160;&#160;&#160;0x2E</td></tr>
+<tr class="separator:a227f3a6e509369f291fae65eb8c97bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbd6adc39acd5752049314fe4384e296"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306init_8h.html#afbd6adc39acd5752049314fe4384e296">SSD1306_DISPLAYALLON</a>&#160;&#160;&#160;0xA5</td></tr>
 <tr class="separator:afbd6adc39acd5752049314fe4384e296"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19ba0228ffbe726628ce81819bc85821"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306init_8h.html#a19ba0228ffbe726628ce81819bc85821">SSD1306_DISPLAYALLON_RESUME</a>&#160;&#160;&#160;0xA4</td></tr>
@@ -172,6 +174,10 @@ Variables</h2></td></tr>
 <tr class="separator:a29cff082b59522083f68a451d7e31025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9f9788202d7665bdecd1b571b3520b2"><td class="memItemLeft" align="right" valign="top">static const uint8_t <a class="el" href="_s_s_d1306init_8h.html#a1ce6cd37363aa5055be41ef5d6f968f6">MEM_TYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306init_8h.html#ac9f9788202d7665bdecd1b571b3520b2">SH1106_128x64init</a> []</td></tr>
 <tr class="separator:ac9f9788202d7665bdecd1b571b3520b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39e7ccff633d5905d4cfbfe1d4be9ded"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="struct_dev_type.html">DevType</a> <a class="el" href="_s_s_d1306init_8h.html#a1ce6cd37363aa5055be41ef5d6f968f6">MEM_TYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306init_8h.html#a39e7ccff633d5905d4cfbfe1d4be9ded">SSD1306_96x16</a></td></tr>
+<tr class="separator:a39e7ccff633d5905d4cfbfe1d4be9ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40317eae5f04d1fa0896d2f2ba5da375"><td class="memItemLeft" align="right" valign="top">static const uint8_t <a class="el" href="_s_s_d1306init_8h.html#a1ce6cd37363aa5055be41ef5d6f968f6">MEM_TYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306init_8h.html#a40317eae5f04d1fa0896d2f2ba5da375">SSD1306_96x16init</a> []</td></tr>
+<tr class="separator:a40317eae5f04d1fa0896d2f2ba5da375"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Display controller initialization commands. </p>
@@ -293,6 +299,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Set COM output scan direction normal. </p>
+
+</div>
+</div>
+<a id="a227f3a6e509369f291fae65eb8c97bf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a227f3a6e509369f291fae65eb8c97bf6">&#9670;&nbsp;</a></span>SSD1306_DEACTIVATE_SCROLL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SSD1306_DEACTIVATE_SCROLL&#160;&#160;&#160;0x2E</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deactivate scroll </p>
 
 </div>
 </div>
@@ -781,10 +802,56 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a39e7ccff633d5905d4cfbfe1d4be9ded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39e7ccff633d5905d4cfbfe1d4be9ded">&#9670;&nbsp;</a></span>SSD1306_96x16</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_dev_type.html">DevType</a> <a class="el" href="_s_s_d1306init_8h.html#a1ce6cd37363aa5055be41ef5d6f968f6">MEM_TYPE</a> SSD1306_96x16</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initialize a 96x16 SSD1306 oled display. </p>
+
+</div>
+</div>
+<a id="a40317eae5f04d1fa0896d2f2ba5da375"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40317eae5f04d1fa0896d2f2ba5da375">&#9670;&nbsp;</a></span>SSD1306_96x16init</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t <a class="el" href="_s_s_d1306init_8h.html#a1ce6cd37363aa5055be41ef5d6f968f6">MEM_TYPE</a> SSD1306_96x16init[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initialization commands for a 96x16 SSD1306 oled display. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 25 2018 07:44:11 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 29 2019 08:50:13 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

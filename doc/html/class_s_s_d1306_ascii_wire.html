@@ -215,6 +215,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a2ec37c0cced265da75f4a776f0642547"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a2ec37c0cced265da75f4a776f0642547">setStartLine</a> (uint8_t line)</td></tr>
 <tr class="memdesc:a2ec37c0cced265da75f4a776f0642547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the display start line register.  <a href="#a2ec37c0cced265da75f4a776f0642547">More...</a><br /></td></tr>
 <tr class="separator:a2ec37c0cced265da75f4a776f0642547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71dc9fd6f5e928224e8a38066d1cf211"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii_wire.html#a71dc9fd6f5e928224e8a38066d1cf211">SSD1306AsciiWire</a> (decltype(Wire) &amp;bus=Wire)</td></tr>
+<tr class="memdesc:a71dc9fd6f5e928224e8a38066d1cf211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize object on specific I2C bus.  <a href="#a71dc9fd6f5e928224e8a38066d1cf211">More...</a><br /></td></tr>
+<tr class="separator:a71dc9fd6f5e928224e8a38066d1cf211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5535be4d677e052cd14d310dd0416031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a5535be4d677e052cd14d310dd0416031">ssd1306WriteCmd</a> (uint8_t c)</td></tr>
 <tr class="memdesc:a5535be4d677e052cd14d310dd0416031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a command byte to the display controller.  <a href="#a5535be4d677e052cd14d310dd0416031">More...</a><br /></td></tr>
 <tr class="separator:a5535be4d677e052cd14d310dd0416031"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -231,13 +234,45 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a344281335d089b05e63d97de61c988ab"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a344281335d089b05e63d97de61c988ab">write</a> (uint8_t c)</td></tr>
 <tr class="memdesc:a344281335d089b05e63d97de61c988ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display a character.  <a href="#a344281335d089b05e63d97de61c988ab">More...</a><br /></td></tr>
 <tr class="separator:a344281335d089b05e63d97de61c988ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90d3e106ad9f0630a4956c73c509d158"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a90d3e106ad9f0630a4956c73c509d158">write</a> (const char *s)</td></tr>
-<tr class="memdesc:a90d3e106ad9f0630a4956c73c509d158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display a string.  <a href="#a90d3e106ad9f0630a4956c73c509d158">More...</a><br /></td></tr>
-<tr class="separator:a90d3e106ad9f0630a4956c73c509d158"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class for I2C displays using Wire. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a71dc9fd6f5e928224e8a38066d1cf211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71dc9fd6f5e928224e8a38066d1cf211">&#9670;&nbsp;</a></span>SSD1306AsciiWire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SSD1306AsciiWire::SSD1306AsciiWire </td>
+          <td>(</td>
+          <td class="paramtype">decltype(Wire) &amp;&#160;</td>
+          <td class="paramname"><em>bus</em> = <code>Wire</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialize object on specific I2C bus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">bus</td><td>The I2C bus to be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="acc49e06776d5c1bba459b4b45bc541e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc49e06776d5c1bba459b4b45bc541e3">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
 
@@ -1713,7 +1748,7 @@ The cursor will be returned to the original position. </dd></dl>
 </div>
 </div>
 <a id="a344281335d089b05e63d97de61c988ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a344281335d089b05e63d97de61c988ab">&#9670;&nbsp;</a></span>write() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a344281335d089b05e63d97de61c988ab">&#9670;&nbsp;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1747,48 +1782,13 @@ The cursor will be returned to the original position. </dd></dl>
 
 </div>
 </div>
-<a id="a90d3e106ad9f0630a4956c73c509d158"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90d3e106ad9f0630a4956c73c509d158">&#9670;&nbsp;</a></span>write() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t SSD1306Ascii::write </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Display a string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">s</td><td>The string to display. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The length of the string. </dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Arduino/libraries/SSD1306Ascii/src/<a class="el" href="_s_s_d1306_ascii_wire_8h.html">SSD1306AsciiWire.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 25 2018 07:44:11 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 29 2019 08:50:13 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>

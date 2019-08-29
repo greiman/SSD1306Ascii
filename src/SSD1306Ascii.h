@@ -28,7 +28,7 @@
 #include "fonts/allFonts.h"
 //------------------------------------------------------------------------------
 /** SSD1306Ascii version */
-#define SDD1306_ASCII_VERSION 1.2.2
+#define SDD1306_ASCII_VERSION 1.2.5
 //------------------------------------------------------------------------------
 // Configuration options.
 /** Set Scrolling mode for newline.
@@ -48,6 +48,15 @@
 /** Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
 
+/** If MULTIPLE_I2C_PORTS is nonzero,
+    define a constructor with port selection. */
+#ifdef __AVR__
+// Save memory on AVR. Set nonzero to use alternate I2C or software I2c on AVR.
+#define MULTIPLE_I2C_PORTS 0
+#else  // __AVR__
+#define MULTIPLE_I2C_PORTS 1
+#endif  // __AVR__
+
 /** AvrI2c uses 400 kHz fast mode if AVRI2C_FASTMODE is nonzero else 100 kHz. */
 #define AVRI2C_FASTMODE 1
 //------------------------------------------------------------------------------
@@ -66,7 +75,7 @@
 #define SSD1306_MODE_RAM     1
 /** Write to display RAM with possible buffering. */
 #define SSD1306_MODE_RAM_BUF 2
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 /**
  * @brief Reset the display controller.
  *

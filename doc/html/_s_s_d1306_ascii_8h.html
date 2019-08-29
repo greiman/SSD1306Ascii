@@ -78,14 +78,13 @@ $(function() {
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;Arduino.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="_s_s_d1306init_8h.html">SSD1306init.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="all_fonts_8h.html">fonts/allFonts.h</a>&quot;</code><br />
+<code>#include &quot;fonts/allFonts.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for SSD1306Ascii.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_s_s_d1306_ascii_8h__incl.png" border="0" usemap="#_arduino_2libraries_2_s_s_d1306_ascii_2src_2_s_s_d1306_ascii_8h" alt=""/></div>
 <map name="_arduino_2libraries_2_s_s_d1306_ascii_2src_2_s_s_d1306_ascii_8h" id="_arduino_2libraries_2_s_s_d1306_ascii_2src_2_s_s_d1306_ascii_8h">
-<area shape="rect" id="node3" href="_s_s_d1306init_8h.html" title="Display controller initialization commands. " alt="" coords="2625,95,2730,121"/>
-<area shape="rect" id="node4" href="all_fonts_8h.html" title="Font definitions. " alt="" coords="2754,95,2865,121"/>
+<area shape="rect" id="node3" href="_s_s_d1306init_8h.html" title="Display controller initialization commands. " alt="" coords="107,95,213,121"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -114,6 +113,8 @@ Macros</h2></td></tr>
 <tr class="separator:ac0de102de39ccaab02096339b6ea9ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d9ee90aff33dec356c3f4a059618bac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#a0d9ee90aff33dec356c3f4a059618bac">INITIAL_SCROLL_MODE</a>&#160;&#160;&#160;<a class="el" href="_s_s_d1306_ascii_8h.html#a9e96f01e8966e1c609a12489b5b87f64">SCROLL_MODE_OFF</a></td></tr>
 <tr class="separator:a0d9ee90aff33dec356c3f4a059618bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b454b9dfb5ee9b6510fa89a8c767b10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#a2b454b9dfb5ee9b6510fa89a8c767b10">MULTIPLE_I2C_PORTS</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a2b454b9dfb5ee9b6510fa89a8c767b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dad8e64264884e4d7534b237a188e4a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#a6dad8e64264884e4d7534b237a188e4a">OPTIMIZE_I2C</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a6dad8e64264884e4d7534b237a188e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac549e6e69b35e18d538234eb4dc09f67"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#ac549e6e69b35e18d538234eb4dc09f67">SCROLL_MODE_APP</a>&#160;&#160;&#160;2</td></tr>
@@ -122,7 +123,7 @@ Macros</h2></td></tr>
 <tr class="separator:affb0995026a742d33c297184db344563"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e96f01e8966e1c609a12489b5b87f64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#a9e96f01e8966e1c609a12489b5b87f64">SCROLL_MODE_OFF</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a9e96f01e8966e1c609a12489b5b87f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16b06bf2cd0b926b27db43a65c982369"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#a16b06bf2cd0b926b27db43a65c982369">SDD1306_ASCII_VERSION</a>&#160;&#160;&#160;1.2.0</td></tr>
+<tr class="memitem:a16b06bf2cd0b926b27db43a65c982369"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#a16b06bf2cd0b926b27db43a65c982369">SDD1306_ASCII_VERSION</a>&#160;&#160;&#160;1.2.5</td></tr>
 <tr class="separator:a16b06bf2cd0b926b27db43a65c982369"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9baa7d1109f5abc31ea021b1e0e70b9d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_s_d1306_ascii_8h.html#a9baa7d1109f5abc31ea021b1e0e70b9d">SSD1306_MODE_CMD</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a9baa7d1109f5abc31ea021b1e0e70b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,6 +185,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Initial scroll mode, SCROLL_MODE_OFF, SCROLL_MODE_AUTO, or SCROLL_MODE_APP. </p>
+
+</div>
+</div>
+<a id="a2b454b9dfb5ee9b6510fa89a8c767b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b454b9dfb5ee9b6510fa89a8c767b10">&#9670;&nbsp;</a></span>MULTIPLE_I2C_PORTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MULTIPLE_I2C_PORTS&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>If MULTIPLE_I2C_PORTS is nonzero, define a constructor with port selection. </p>
 
 </div>
 </div>
@@ -254,7 +270,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SDD1306_ASCII_VERSION&#160;&#160;&#160;1.2.0</td>
+          <td class="memname">#define SDD1306_ASCII_VERSION&#160;&#160;&#160;1.2.5</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -345,7 +361,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 25 2018 07:44:11 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 29 2019 08:50:13 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>
