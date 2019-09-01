@@ -264,21 +264,32 @@ size_t SSD1306Ascii::write(uint8_t ch) {
   for (uint8_t r = 0; r < nr; r++) {
     for (uint8_t m = 0; m < m_magFactor; m++) {
       if (r || m) setCursor(scol, m_row + 1);
-      for (uint8_t c = 0; c < w; c++) {
-        uint8_t b = readFontByte(base + c + r*w);
-        if (thieleShift && (r + 1) == nr) {
-          b >>= thieleShift;
+      for (uint8_t c = 0; c < w; c++)
+#if INCLUDE_SCROLLING
+        if (m_xshift > 0)
+          --m_xshift;
+        else
+#endif
+        {
+          uint8_t b = readFontByte(base + c + r*w);
+          if (thieleShift && (r + 1) == nr) {
+            b >>= thieleShift;
+          }
+          if (m_magFactor == 2) {
+             b = m ?  b >> 4 : b & 0XF;
+             b = readFontByte(scaledNibble + b);
+             ssd1306WriteRamBuf(b);
+          }
+          ssd1306WriteRamBuf(b);
         }
-        if (m_magFactor == 2) {
-           b = m ?  b >> 4 : b & 0XF;
-           b = readFontByte(scaledNibble + b);
-           ssd1306WriteRamBuf(b);
+        for (uint8_t i = 0; i < s; i++) {
+#if INCLUDE_SCROLLING
+          if (m_xshift > 0)
+            --m_xshift;
+          else
+#endif
+            ssd1306WriteRamBuf(0);
         }
-        ssd1306WriteRamBuf(b);
-      }
-      for (uint8_t i = 0; i < s; i++) {
-        ssd1306WriteRamBuf(0);
-      }
     }
   }
   setRow(srow);

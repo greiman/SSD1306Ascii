@@ -161,6 +161,10 @@ class SSD1306Ascii : public Print {
    * @return the display startline.
    */
   uint8_t startLine() const {return m_startLine;}
+  /**
+   * @brief software shift next write(s) by swallowing columns
+   */
+  void xShift (uint8_t shift) { m_xshift = shift; }
 #endif  // INCLUDE_SCROLLING
   //----------------------------------------------------------------------------
   /**
@@ -391,6 +395,7 @@ class SSD1306Ascii : public Print {
   uint8_t m_startLine;      // Top line of display
   uint8_t m_pageOffset;     // Top page of RAM window.
   uint8_t m_scrollMode = INITIAL_SCROLL_MODE;  // Scroll mode for newline.
+  uint8_t m_xshift = 0;     // x pixel software shift
 #endif  // INCLUDE_SCROLLING
   const uint8_t* m_font = nullptr;  // Current font.
   uint8_t m_invertMask = 0;  // font invert mask
