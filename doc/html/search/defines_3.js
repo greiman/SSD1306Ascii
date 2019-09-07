@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['optimize_5fi2c',['OPTIMIZE_I2C',['../_s_s_d1306_ascii_8h.html#a6dad8e64264884e4d7534b237a188e4a',1,'SSD1306Ascii.h']]]
+  ['include_5fscrolling',['INCLUDE_SCROLLING',['../_s_s_d1306_ascii_8h.html#ac0de102de39ccaab02096339b6ea9ec3',1,'SSD1306Ascii.h']]],
+  ['initial_5fscroll_5fmode',['INITIAL_SCROLL_MODE',['../_s_s_d1306_ascii_8h.html#a0d9ee90aff33dec356c3f4a059618bac',1,'SSD1306Ascii.h']]]
 ];

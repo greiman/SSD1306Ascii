@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['read',['read',['../class_avr_i2c.html#acbe619382b96fe1899bbdf0d808aa124',1,'AvrI2c']]],
-  ['repeatedstart',['repeatedStart',['../class_avr_i2c.html#abf256161193de9acb2235a52a8b422a0',1,'AvrI2c']]],
-  ['row',['row',['../class_s_s_d1306_ascii.html#acaa73cbce657f3863a261c897d586f5b',1,'SSD1306Ascii']]]
+  ['queuefree',['queueFree',['../struct_ticker_state.html#a942a4c5388669138ad9518b3e14c3cb4',1,'TickerState']]],
+  ['queueused',['queueUsed',['../struct_ticker_state.html#a99d84731b9512a573efd4d40d1ce6b07',1,'TickerState']]]
 ];

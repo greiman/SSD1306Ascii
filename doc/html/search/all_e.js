@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['write',['write',['../class_s_s_d1306_ascii.html#a344281335d089b05e63d97de61c988ab',1,'SSD1306Ascii::write()'],['../class_avr_i2c.html#aee33451c8f3a34320975eb6845aab084',1,'AvrI2c::write()'],['../class_digital_output.html#af78855eb55325dedc24817ee70ae64ed',1,'DigitalOutput::write()']]]
+  ['queue',['queue',['../struct_ticker_state.html#a62c6821b8397205a667c3f5785f12bd7',1,'TickerState']]],
+  ['queuefree',['queueFree',['../struct_ticker_state.html#a942a4c5388669138ad9518b3e14c3cb4',1,'TickerState']]],
+  ['queueused',['queueUsed',['../struct_ticker_state.html#a99d84731b9512a573efd4d40d1ce6b07',1,'TickerState']]]
 ];

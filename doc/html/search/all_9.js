@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['oledreset',['oledReset',['../_s_s_d1306_ascii_8h.html#a2d24b58760aa70ba784ac7a43b2d3b16',1,'SSD1306Ascii.h']]],
-  ['optimize_5fi2c',['OPTIMIZE_I2C',['../_s_s_d1306_ascii_8h.html#a6dad8e64264884e4d7534b237a188e4a',1,'SSD1306Ascii.h']]]
+  ['lcdheight',['lcdHeight',['../struct_dev_type.html#ac05d347b65a6698b28ac6f7e1b3038c1',1,'DevType']]],
+  ['lcdwidth',['lcdWidth',['../struct_dev_type.html#a1fd12d94aa7af1547f228623d51d7481',1,'DevType']]],
+  ['letterspacing',['letterSpacing',['../class_s_s_d1306_ascii.html#a4d22729261450299263dc509a0d85f44',1,'SSD1306Ascii']]]
 ];

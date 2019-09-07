@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['coloffset',['colOffset',['../struct_dev_type.html#a9ffb262e6ccb78389abd291fd446c071',1,'DevType']]]
+  ['bgncol',['bgnCol',['../struct_ticker_state.html#ac9acf7f7afbfff4dd845e152dfa88e4d',1,'TickerState']]]
 ];

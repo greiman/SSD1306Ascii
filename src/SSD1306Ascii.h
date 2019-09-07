@@ -28,7 +28,7 @@
 #include "fonts/allFonts.h"
 //------------------------------------------------------------------------------
 /** SSD1306Ascii version */
-#define SDD1306_ASCII_VERSION 1.2.5
+#define SDD1306_ASCII_VERSION 1.3.0
 //------------------------------------------------------------------------------
 // Configuration options.
 /** Set Scrolling mode for newline.
@@ -44,6 +44,9 @@
 /** Initial scroll mode, SCROLL_MODE_OFF,
     SCROLL_MODE_AUTO, or SCROLL_MODE_APP. */
 #define INITIAL_SCROLL_MODE SCROLL_MODE_OFF
+
+/** Dimension of TickerState pointer queue */
+#define TICKER_QUEUE_DIM 6
 
 /** Use larger faster I2C code. */
 #define OPTIMIZE_I2C 1
@@ -88,6 +91,27 @@ inline void oledReset(uint8_t rst) {
   digitalWrite(rst, HIGH);
   delay(10);
 }
+//------------------------------------------------------------------------------
+/**
+ * @struct TickerState
+ * @brief ticker status
+ */
+struct TickerState {
+  const char* queue[TICKER_QUEUE_DIM];  ///< Queue of text pointers.
+  uint8_t nQueue = 0;  ///< Count of pointers in queue.
+  const uint8_t* font = nullptr;  ///< Font for ticker.
+  bool mag2X;      ///< Use mag2X if true.
+  uint8_t row;     ///< Row for ticker
+  uint8_t bgnCol;  ///< Begin column of ticker.
+  uint8_t endCol;  ///< End column of ticker.
+  bool init;       ///< clear and initialize display area if true.
+  uint8_t col;     ///< Column for start of displayed text.
+  uint8_t skip;    ///< Number of pixels to skip in first character.
+  /// @return Count of free queue slots.
+  uint8_t queueFree() {return TICKER_QUEUE_DIM - nQueue;}
+  /// @return Count of used queue slots.
+  uint8_t queueUsed() {return nQueue;}
+};
 //------------------------------------------------------------------------------
 /**
  * @class SSD1306Ascii
@@ -163,6 +187,13 @@ class SSD1306Ascii : public Print {
   uint8_t startLine() const {return m_startLine;}
 #endif  // INCLUDE_SCROLLING
   //----------------------------------------------------------------------------
+  /**
+   * @brief Determine the spacing of a character. Spacing is width + space.
+   *
+   * @param[in] c Character code.
+   * @return Spacing of the character in pixels.
+   */
+  uint8_t charSpacing(uint8_t c) {return charWidth(c) + letterSpacing();}
   /**
    * @brief Determine the width of a character.
    *
@@ -366,15 +397,61 @@ class SSD1306Ascii : public Print {
    */
   void ssd1306WriteRamBuf(uint8_t c);
   /**
+   * @brief Skip leading pixels writing characters to display display RAM.
+   *
+   * @param[in] n Number of pixels to skip.
+   */
+  void skipColumns(uint8_t n) {m_skip = n;}
+  /**
+   * @brief Character width.
+   *
    * @param[in] str The pointer to string.
    * @return the width of the string in pixels.
    */
   size_t strWidth(const char* str) const;
   /**
+   * @brief Initialize TickerState struct and clear ticker field.
+   *
+   * @param[in,out] state Ticker state.
+   * @param[in] font to be displayed.
+   * @param[in] row Row for ticker.
+   * @param[in] mag2X set magFactor to two if true.
+   * @param[in] bgnCol First column of ticker. Default is zero.
+   * @param[in] endCol Last column of ticker. Default is last column of display.
+   */
+  void tickerInit(TickerState* state, const uint8_t* font, uint8_t row,
+       bool mag2X = false, uint8_t bgnCol = 0, uint8_t endCol = 255);
+  /**
+   *  @brief Add text pointer to display queue.
+   *
+   * @param[in,out] state Ticker state.
+   * @param[in] str Pointer to String object. Clear queue if nullptr.
+   * @return false if queue is full else true.
+   */
+  bool tickerText(TickerState* state, const String &str) {
+    return tickerText(state, str ? str.c_str() : nullptr);
+  }
+  /**
+   *  @brief Add text pointer to display queue.
+   *
+   * @param[in,out] state Ticker state.
+   * @param[in] text Pointer to C string.  Clear queue if nullptr.
+   * @return false if queue is full else true.
+   */
+  bool tickerText(TickerState* state, const char* text);
+  /**
+   * @brief Advance ticker by one pixel.
+   *
+   * @param[in,out] state Ticker state.
+   *
+   * @return Number of entries in text pointer queue.
+   */
+  int8_t tickerTick(TickerState* state);
+  /**
    * @brief Display a character.
    *
    * @param[in] c The character to display.
-   * @return the value one.
+   * @return one for success else zero.
    */
   size_t write(uint8_t c);
 
@@ -392,6 +469,7 @@ class SSD1306Ascii : public Print {
   uint8_t m_pageOffset;     // Top page of RAM window.
   uint8_t m_scrollMode = INITIAL_SCROLL_MODE;  // Scroll mode for newline.
 #endif  // INCLUDE_SCROLLING
+  uint8_t m_skip = 0;
   const uint8_t* m_font = nullptr;  // Current font.
   uint8_t m_invertMask = 0;  // font invert mask
   uint8_t m_magFactor = 1;   // Magnification factor.

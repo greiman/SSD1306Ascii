@@ -88,10 +88,15 @@ Inheritance diagram for SSD1306Ascii:</div>
 Collaboration diagram for SSD1306Ascii:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_s_s_d1306_ascii__coll__graph.png" border="0" usemap="#_s_s_d1306_ascii_coll__map" alt="Collaboration graph"/></div>
+<map name="_s_s_d1306_ascii_coll__map" id="_s_s_d1306_ascii_coll__map">
+</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a3b32ce716a5ea4a6b288a74b0d550683"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a3b32ce716a5ea4a6b288a74b0d550683">charSpacing</a> (uint8_t c)</td></tr>
+<tr class="memdesc:a3b32ce716a5ea4a6b288a74b0d550683"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the spacing of a character. Spacing is width + space.  <a href="#a3b32ce716a5ea4a6b288a74b0d550683">More...</a><br /></td></tr>
+<tr class="separator:a3b32ce716a5ea4a6b288a74b0d550683"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0152829a8c07762690cfc81747e1acf6"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a0152829a8c07762690cfc81747e1acf6">charWidth</a> (uint8_t c) const</td></tr>
 <tr class="memdesc:a0152829a8c07762690cfc81747e1acf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the width of a character.  <a href="#a0152829a8c07762690cfc81747e1acf6">More...</a><br /></td></tr>
 <tr class="separator:a0152829a8c07762690cfc81747e1acf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,6 +210,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a2ec37c0cced265da75f4a776f0642547"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a2ec37c0cced265da75f4a776f0642547">setStartLine</a> (uint8_t line)</td></tr>
 <tr class="memdesc:a2ec37c0cced265da75f4a776f0642547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the display start line register.  <a href="#a2ec37c0cced265da75f4a776f0642547">More...</a><br /></td></tr>
 <tr class="separator:a2ec37c0cced265da75f4a776f0642547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0236f5bdda01a867e6afd59109a8f0a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a0236f5bdda01a867e6afd59109a8f0a8">skipColumns</a> (uint8_t n)</td></tr>
+<tr class="memdesc:a0236f5bdda01a867e6afd59109a8f0a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip leading pixels writing characters to display display RAM.  <a href="#a0236f5bdda01a867e6afd59109a8f0a8">More...</a><br /></td></tr>
+<tr class="separator:a0236f5bdda01a867e6afd59109a8f0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5535be4d677e052cd14d310dd0416031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a5535be4d677e052cd14d310dd0416031">ssd1306WriteCmd</a> (uint8_t c)</td></tr>
 <tr class="memdesc:a5535be4d677e052cd14d310dd0416031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a command byte to the display controller.  <a href="#a5535be4d677e052cd14d310dd0416031">More...</a><br /></td></tr>
 <tr class="separator:a5535be4d677e052cd14d310dd0416031"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -217,7 +225,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:abdcd4cf29cb35f6c5bba1fc835de675a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#abdcd4cf29cb35f6c5bba1fc835de675a">startLine</a> () const</td></tr>
 <tr class="separator:abdcd4cf29cb35f6c5bba1fc835de675a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cdbc510a48201c74f0028235003dba6"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a3cdbc510a48201c74f0028235003dba6">strWidth</a> (const char *str) const</td></tr>
+<tr class="memdesc:a3cdbc510a48201c74f0028235003dba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Character width.  <a href="#a3cdbc510a48201c74f0028235003dba6">More...</a><br /></td></tr>
 <tr class="separator:a3cdbc510a48201c74f0028235003dba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61b9d262f1e01a6d09cd45cd4fb86e2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a61b9d262f1e01a6d09cd45cd4fb86e2d">tickerInit</a> (<a class="el" href="struct_ticker_state.html">TickerState</a> *state, const uint8_t *<a class="el" href="class_s_s_d1306_ascii.html#a2a45580859ba1e08d68ec3cb36a0a04c">font</a>, uint8_t <a class="el" href="class_s_s_d1306_ascii.html#acaa73cbce657f3863a261c897d586f5b">row</a>, bool mag2X=false, uint8_t bgnCol=0, uint8_t endCol=255)</td></tr>
+<tr class="memdesc:a61b9d262f1e01a6d09cd45cd4fb86e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize <a class="el" href="struct_ticker_state.html" title="ticker status ">TickerState</a> struct and clear ticker field.  <a href="#a61b9d262f1e01a6d09cd45cd4fb86e2d">More...</a><br /></td></tr>
+<tr class="separator:a61b9d262f1e01a6d09cd45cd4fb86e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb477dc1d3f3f65aa28c459d1130305e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#afb477dc1d3f3f65aa28c459d1130305e">tickerText</a> (<a class="el" href="struct_ticker_state.html">TickerState</a> *state, const String &amp;str)</td></tr>
+<tr class="memdesc:afb477dc1d3f3f65aa28c459d1130305e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add text pointer to display queue.  <a href="#afb477dc1d3f3f65aa28c459d1130305e">More...</a><br /></td></tr>
+<tr class="separator:afb477dc1d3f3f65aa28c459d1130305e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7b63a8e660addf5a95504106b36eb0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a6c7b63a8e660addf5a95504106b36eb0">tickerText</a> (<a class="el" href="struct_ticker_state.html">TickerState</a> *state, const char *text)</td></tr>
+<tr class="memdesc:a6c7b63a8e660addf5a95504106b36eb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add text pointer to display queue.  <a href="#a6c7b63a8e660addf5a95504106b36eb0">More...</a><br /></td></tr>
+<tr class="separator:a6c7b63a8e660addf5a95504106b36eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a024fef17820a709a1f6f32ce1330cda2"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a024fef17820a709a1f6f32ce1330cda2">tickerTick</a> (<a class="el" href="struct_ticker_state.html">TickerState</a> *state)</td></tr>
+<tr class="memdesc:a024fef17820a709a1f6f32ce1330cda2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advance ticker by one pixel.  <a href="#a024fef17820a709a1f6f32ce1330cda2">More...</a><br /></td></tr>
+<tr class="separator:a024fef17820a709a1f6f32ce1330cda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a344281335d089b05e63d97de61c988ab"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_s_d1306_ascii.html#a344281335d089b05e63d97de61c988ab">write</a> (uint8_t c)</td></tr>
 <tr class="memdesc:a344281335d089b05e63d97de61c988ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display a character.  <a href="#a344281335d089b05e63d97de61c988ab">More...</a><br /></td></tr>
 <tr class="separator:a344281335d089b05e63d97de61c988ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,6 +246,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>SSD1306 base class. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3b32ce716a5ea4a6b288a74b0d550683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b32ce716a5ea4a6b288a74b0d550683">&#9670;&nbsp;</a></span>charSpacing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t SSD1306Ascii::charSpacing </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determine the spacing of a character. Spacing is width + space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>Character code. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Spacing of the character in pixels. </dd></dl>
+
+</div>
+</div>
 <a id="a0152829a8c07762690cfc81747e1acf6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0152829a8c07762690cfc81747e1acf6">&#9670;&nbsp;</a></span>charWidth()</h2>
 
@@ -1278,6 +1334,40 @@ The cursor will be returned to the original position. </dd></dl>
 
 </div>
 </div>
+<a id="a0236f5bdda01a867e6afd59109a8f0a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0236f5bdda01a867e6afd59109a8f0a8">&#9670;&nbsp;</a></span>skipColumns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SSD1306Ascii::skipColumns </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Skip leading pixels writing characters to display display RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>Number of pixels to skip. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a5535be4d677e052cd14d310dd0416031"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5535be4d677e052cd14d310dd0416031">&#9670;&nbsp;</a></span>ssd1306WriteCmd()</h2>
 
@@ -1408,6 +1498,8 @@ The cursor will be returned to the original position. </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Character width. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>The pointer to string. </td></tr>
@@ -1415,6 +1507,182 @@ The cursor will be returned to the original position. </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the width of the string in pixels. </dd></dl>
+
+</div>
+</div>
+<a id="a61b9d262f1e01a6d09cd45cd4fb86e2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61b9d262f1e01a6d09cd45cd4fb86e2d">&#9670;&nbsp;</a></span>tickerInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SSD1306Ascii::tickerInit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_ticker_state.html">TickerState</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>mag2X</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>bgnCol</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>endCol</em> = <code>255</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize <a class="el" href="struct_ticker_state.html" title="ticker status ">TickerState</a> struct and clear ticker field. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">state</td><td>Ticker state. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">font</td><td>to be displayed. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row</td><td>Row for ticker. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mag2X</td><td>set magFactor to two if true. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">bgnCol</td><td>First column of ticker. Default is zero. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">endCol</td><td>Last column of ticker. Default is last column of display. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afb477dc1d3f3f65aa28c459d1130305e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb477dc1d3f3f65aa28c459d1130305e">&#9670;&nbsp;</a></span>tickerText() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SSD1306Ascii::tickerText </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_ticker_state.html">TickerState</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add text pointer to display queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">state</td><td>Ticker state. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>Pointer to String object. Clear queue if nullptr. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if queue is full else true. </dd></dl>
+
+</div>
+</div>
+<a id="a6c7b63a8e660addf5a95504106b36eb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c7b63a8e660addf5a95504106b36eb0">&#9670;&nbsp;</a></span>tickerText() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SSD1306Ascii::tickerText </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_ticker_state.html">TickerState</a> *&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add text pointer to display queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">state</td><td>Ticker state. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">text</td><td>Pointer to C string. Clear queue if nullptr. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if queue is full else true. </dd></dl>
+
+</div>
+</div>
+<a id="a024fef17820a709a1f6f32ce1330cda2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a024fef17820a709a1f6f32ce1330cda2">&#9670;&nbsp;</a></span>tickerTick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int8_t SSD1306Ascii::tickerTick </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_ticker_state.html">TickerState</a> *&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advance ticker by one pixel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">state</td><td>Ticker state.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of entries in text pointer queue. </dd></dl>
 
 </div>
 </div>
@@ -1441,7 +1709,7 @@ The cursor will be returned to the original position. </dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the value one. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>one for success else zero. </dd></dl>
 
 </div>
 </div>
@@ -1452,7 +1720,7 @@ The cursor will be returned to the original position. </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Aug 29 2019 08:50:13 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 7 2019 06:47:25 for SSD1306Ascii by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.14
 </small></address>
