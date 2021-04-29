@@ -33,10 +33,7 @@ const char* text[] = {
   "abcdefghijklmnopqrstuvwxyz ",
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
 };
-
 //------------------------------------------------------------------------------
-String readAdc(uint8_t first, uint8_t last);
-
 void setup() {
   Wire.begin();
   Wire.setClock(400000L);
@@ -53,8 +50,10 @@ void setup() {
   // Try this for full screen width with set1X.
   // oled.tickerInit(&state, Adafruit5x7, 2);
 }
+
 uint32_t tickTime = 0;
 int n = 0;
+
 void loop() {
   if (tickTime <= millis()) {
     tickTime = millis() + 30;

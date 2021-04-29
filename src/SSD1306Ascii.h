@@ -94,7 +94,7 @@ inline void oledReset(uint8_t rst) {
 //------------------------------------------------------------------------------
 /**
  * @struct TickerState
- * @brief ticker status
+ * @brief ticker state
  */
 struct TickerState {
   const char* queue[TICKER_QUEUE_DIM];  ///< Queue of text pointers.
@@ -410,12 +410,12 @@ class SSD1306Ascii : public Print {
    */
   size_t strWidth(const char* str) const;
   /**
-   * @brief Initialize TickerState struct and clear ticker field.
+   * @brief Initialize TickerState struct.
    *
    * @param[in,out] state Ticker state.
-   * @param[in] font to be displayed.
+   * @param[in] font Font to be displayed.
    * @param[in] row Row for ticker.
-   * @param[in] mag2X set magFactor to two if true.
+   * @param[in] mag2X Set magFactor to two if true.
    * @param[in] bgnCol First column of ticker. Default is zero.
    * @param[in] endCol Last column of ticker. Default is last column of display.
    */
@@ -443,7 +443,6 @@ class SSD1306Ascii : public Print {
    * @brief Advance ticker by one pixel.
    *
    * @param[in,out] state Ticker state.
-   *
    * @return Number of entries in text pointer queue.
    */
   int8_t tickerTick(TickerState* state);

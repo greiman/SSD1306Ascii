@@ -10,6 +10,8 @@ Arduino style boards that have the SPI or Wire library.
 
 Please read the html documentation in the SSD1306Ascii/doc folder.
 
+Click on SSD1306Ascii.html in the doc folder.
+
 Several options can be set by editing SSD1306Ascii/src/SSD1306Ascii.h.
 
 The SSD1306Ascii library only requires a few bytes of RAM.
