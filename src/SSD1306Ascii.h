@@ -28,7 +28,7 @@
 #include "fonts/allFonts.h"
 //------------------------------------------------------------------------------
 /** SSD1306Ascii version */
-#define SDD1306_ASCII_VERSION 1.3.0
+#define SDD1306_ASCII_VERSION 10302
 //------------------------------------------------------------------------------
 // Configuration options.
 /** Set Scrolling mode for newline.
@@ -429,7 +429,7 @@ class SSD1306Ascii : public Print {
    * @return false if queue is full else true.
    */
   bool tickerText(TickerState* state, const String &str) {
-    return tickerText(state, str ? str.c_str() : nullptr);
+    return tickerText(state, str.c_str());
   }
   /**
    *  @brief Add text pointer to display queue.
