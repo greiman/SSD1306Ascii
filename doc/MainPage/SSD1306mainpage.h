@@ -20,7 +20,7 @@
 
 /**
 @mainpage Arduino %SSD1306Ascii Library
-<CENTER>Copyright &copy; 2015-20018 by William Greiman
+<CENTER>Copyright &copy; 2015-2022 by William Greiman
 </CENTER>
 
 @section Intro Introduction
