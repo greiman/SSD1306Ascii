@@ -1,7 +1,7 @@
 // STARTFONT 2.1
 // FONT -zevv-peep-Medium-R-Normal--16-140-75-75-C-80-ISO8859-1
-#ifndef font8x16_h
-#define font8x16_h
+#ifndef ZevvPeep8x16_h
+#define ZevvPeep8x16_h
 
 GLCDFONTDECL(ZevvPeep8x16) = {
   0x0, 0x0, // size of zero indicates fixed width font,
@@ -106,4 +106,4 @@ GLCDFONTDECL(ZevvPeep8x16) = {
   0X30,0X08,0X08,0X10,0X20,0X20,0X18,0X00,0X00,0X00,0X00,0X00,0X00,0X00,  // '~'
   0XFE,0XFE,0XFE,0XFE,0XFE,0XFE,0XFE,0X7F,0X7F,0X7F,0X7F,0X7F,0X7F,0X7F   // del
 };
-#endif  // font8x16_h
+#endif  // ZevvPeep8x16_h

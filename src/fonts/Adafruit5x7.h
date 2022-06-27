@@ -3,7 +3,9 @@
 
 // standard ascii 5x7 font
 // Restrict to 96 characters
+#ifndef ADAFRUIT_ASCII96
 #define ADAFRUIT_ASCII96 1
+#endif  // ADAFRUIT_ASCII96
 GLCDFONTDECL(Adafruit5x7) = {
   0x0, 0x0, // size of zero indicates fixed width font,
   0x05, // width

@@ -305,34 +305,35 @@ size_t SSD1306Ascii::write(uint8_t ch) {
   uint8_t count = readFontByte(m_font + FONT_CHAR_COUNT);
   const uint8_t* base = m_font + FONT_WIDTH_TABLE;
 
-  if (ch < first || ch >= (first + count)) {
-    if (ch == '\r') {
-      setCol(0);
-      return 1;
-    }
-    if (ch == '\n') {
-      setCol(0);
-      uint8_t fr = m_magFactor*nr;
+  if (ch == '\r') {
+    setCol(0);
+    return 1;
+  }
+  if (ch == '\n') {
+    setCol(0);
+    uint8_t fr = m_magFactor*nr;
 #if INCLUDE_SCROLLING
-      uint8_t dr = displayRows();
-      uint8_t tmpRow = m_row + fr;
-      int8_t delta = tmpRow + fr - dr;
-      if (m_scrollMode == SCROLL_MODE_OFF || delta <= 0) {
-        setRow(tmpRow);
-      } else {
-        m_pageOffset = (m_pageOffset + delta) & 7;
-        m_row  = dr - fr;
-        // Cursor will be positioned by clearToEOL.
-        clearToEOL();
-        if (m_scrollMode == SCROLL_MODE_AUTO) {
-          setStartLine(8*m_pageOffset);
-        }
+    uint8_t dr = displayRows();
+    uint8_t tmpRow = m_row + fr;
+    int8_t delta = tmpRow + fr - dr;
+    if (m_scrollMode == SCROLL_MODE_OFF || delta <= 0) {
+      setRow(tmpRow);
+    } else {
+      m_pageOffset = (m_pageOffset + delta) & 7;
+      m_row  = dr - fr;
+      // Cursor will be positioned by clearToEOL.
+      clearToEOL();
+      if (m_scrollMode == SCROLL_MODE_AUTO) {
+        setStartLine(8*m_pageOffset);
       }
-#else  // INCLUDE_SCROLLING
-      setRow(m_row + fr);
-#endif  // INCLUDE_SCROLLING
-      return 1;
     }
+#else  // INCLUDE_SCROLLING
+    setRow(m_row + fr);
+#endif  // INCLUDE_SCROLLING
+    return 1;
+  }
+  // Error if not in font.
+  if (ch < first || (first + count) <= ch) {
     return 0;
   }
   ch -= first;

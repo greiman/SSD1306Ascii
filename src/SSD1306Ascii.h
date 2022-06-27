@@ -28,7 +28,7 @@
 #include "fonts/allFonts.h"
 //------------------------------------------------------------------------------
 /** SSD1306Ascii version */
-#define SDD1306_ASCII_VERSION 10302
+#define SDD1306_ASCII_VERSION 10303
 //------------------------------------------------------------------------------
 // Configuration options.
 /** Set Scrolling mode for newline.
@@ -443,7 +443,7 @@ class SSD1306Ascii : public Print {
    * @brief Advance ticker by one pixel.
    *
    * @param[in,out] state Ticker state.
-   * @return Number of entries in text pointer queue.
+   * @return Number of entries in text pointer queue or -1 if an error occurs.
    */
   int8_t tickerTick(TickerState* state);
   /**
