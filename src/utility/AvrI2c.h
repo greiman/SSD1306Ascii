@@ -34,10 +34,10 @@
 #else  // !defined(__AVR__) || !defined(TWSR)
 
 /** Maximum SCL frecquency */
-const uint32_t MAX_SCL_CLOCK = F_CPU/(16+2*10);
+const uint32_t MAX_SCL_CLOCK = F_CPU / (16 + 2 * 10);
 
 /** Minimum SCL frecquency */
-const uint32_t MIN_SCL_CLOCK = F_CPU/(16+2*255);
+const uint32_t MIN_SCL_CLOCK = F_CPU / (16 + 2 * 255);
 
 /** Bit to or with address for read start and read restart */
 uint8_t const I2C_READ = 1;
@@ -86,8 +86,11 @@ static void AvrI2cFail(uint16_t line) {
   Serial.print(F("DBG_FAIL: AvrI2c.h:"));
   Serial.println(line);
 }
-#define DBG_PRINT_HEX(msg, val)\
-  {Serial.print(F(msg));Serial.println(val, HEX);}
+#define DBG_PRINT_HEX(msg, val) \
+  {                             \
+    Serial.print(F(msg));       \
+    Serial.println(val, HEX);   \
+  }
 #define AVR_I2C_FAIL_MACRO AvrI2cFail(__LINE__)
 #else  // AVR_I2C_DBG
 #define AVR_I2C_FAIL_MACRO
@@ -117,9 +120,7 @@ class AvrI2c {
   /**
    * @brief Disable TWI module.
    */
-  void end() {
-    TWCR &= ~((1 << TWEN) | (1 << TWEA));
-  }
+  void end() { TWCR &= ~((1 << TWEN) | (1 << TWEA)); }
   /**
    * @brief Read a byte and send Ack if more reads follow else
              Nak to terminate read.
@@ -148,9 +149,7 @@ class AvrI2c {
    * @param[in] addressRW I2C address with read/write bit.
    * @return The value true, 1, for success or false, 0, for failure.
    */
-  bool repeatedStart(uint8_t addressRW) {
-    return start(addressRW);
-  }
+  bool repeatedStart(uint8_t addressRW) { return start(addressRW); }
   /**
    * @brief Set the I2C bit rate.
    *
@@ -195,7 +194,7 @@ class AvrI2c {
     return true;
   }
   /** @return status from last TWI command - useful for library debug */
-  uint8_t status(void) {return status_;}
+  uint8_t status(void) { return status_; }
   /** Issue a stop condition. */
   bool stop(void) {
     TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);

@@ -33,7 +33,7 @@
 /** Handle AVR flash addressing. */
 #define MEM_TYPE
 #else  // __AVR__
-#define MEM_TYPE __attribute__ ((progmem))
+#define MEM_TYPE __attribute__((progmem))
 #endif  // __AVR__
 //------------------------------------------------------------------------------
 /** Set Lower Column Start Address for Page Addressing Mode. */
@@ -120,6 +120,7 @@ struct DevType {
    */
   const uint8_t colOffset;
 };
+// clang-format off
 //------------------------------------------------------------------------------
 /** Initialization commands for a 64x48 Micro OLED display (by r7) */
 static const uint8_t MEM_TYPE MicroOLED64x48init[] = {
@@ -128,7 +129,7 @@ static const uint8_t MEM_TYPE MicroOLED64x48init[] = {
     SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // the suggested ratio 0x80
     SSD1306_SETMULTIPLEX, 0x2F,        //
     SSD1306_SETDISPLAYOFFSET, 0x0,     // no offset
-    SSD1306_SETSTARTLINE | 0x0,        // line #0
+    SSD1306_SETSTARTLINE,              // line #0
     SSD1306_CHARGEPUMP, 0x14,          // internal vcc
     SSD1306_NORMALDISPLAY,
     SSD1306_DISPLAYALLON_RESUME,
@@ -158,7 +159,7 @@ static const uint8_t MEM_TYPE SSD1306_96x16init[] = {
     SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // clock divide ratio and osc frequency
     SSD1306_SETMULTIPLEX, 0x0F,        // multiplex ratio
     SSD1306_SETDISPLAYOFFSET, 0x0,     // display offset zero
-    SSD1306_SETSTARTLINE | 0x0,        // set display start line to 0
+    SSD1306_SETSTARTLINE,              // set display start line to 0
     SSD1306_CHARGEPUMP, 0x14,          // charge pump setting enable
     SSD1306_MEMORYMODE, 0x00,          // page addressing mode
     SSD1306_SEGREMAP | 0xA1,           // segment remap
@@ -189,7 +190,7 @@ static const uint8_t MEM_TYPE Adafruit128x32init[] = {
     SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // the suggested ratio 0x80
     SSD1306_SETMULTIPLEX, 0x1F,        // ratio 32
     SSD1306_SETDISPLAYOFFSET, 0x0,     // no offset
-    SSD1306_SETSTARTLINE | 0x0,        // line #0
+    SSD1306_SETSTARTLINE,              // line #0
     SSD1306_CHARGEPUMP, 0x14,          // internal vcc
     SSD1306_MEMORYMODE, 0x02,          // page mode
     SSD1306_SEGREMAP | 0x1,            // column 127 mapped to SEG0
@@ -219,7 +220,7 @@ static const uint8_t MEM_TYPE Adafruit128x64init[] = {
     SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // the suggested ratio 0x80
     SSD1306_SETMULTIPLEX, 0x3F,        // ratio 64
     SSD1306_SETDISPLAYOFFSET, 0x0,     // no offset
-    SSD1306_SETSTARTLINE | 0x0,        // line #0
+    SSD1306_SETSTARTLINE,              // line #0
     SSD1306_CHARGEPUMP, 0x14,          // internal vcc
     SSD1306_MEMORYMODE, 0x02,          // page mode
     SSD1306_SEGREMAP | 0x1,            // column 127 mapped to SEG0
@@ -245,7 +246,7 @@ static const DevType MEM_TYPE Adafruit128x64 = {
 /** Initialization commands for a 128x64 SH1106 oled display. */
 static const uint8_t MEM_TYPE SH1106_128x64init[] = {
   SSD1306_DISPLAYOFF,
-  SSD1306_SETSTARTPAGE | 0X0,            // set page address
+  SSD1306_SETSTARTPAGE,                  // set page zero
   SSD1306_SETCONTRAST, 0x80,             // 128
   SSD1306_SEGREMAP | 0X1,                // set segment remap
   SSD1306_NORMALDISPLAY,                 // normal / reverse
@@ -268,4 +269,5 @@ static const DevType MEM_TYPE SH1106_128x64 =  {
   64,
   2    // SH1106 is a 132x64 controller.  Use middle 128 columns.
 };
+// clang-format on
 #endif  // SSD1306init_h

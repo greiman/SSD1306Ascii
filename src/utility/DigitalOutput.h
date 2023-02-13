@@ -31,8 +31,8 @@
 
 #include <Arduino.h>
 #ifdef __AVR__
-#include <util/atomic.h>
 #include <avr/io.h>
+#include <util/atomic.h>
 /**
  * @class DigitalOutput
  * @brief Faster version of digitalWrite().
@@ -56,16 +56,16 @@ class DigitalOutput {
    *
    * @param[in] level The value to be set.
    */
-  inline __attribute__((always_inline))
-  void write(bool level) {ATOMIC_BLOCK(ATOMIC_FORCEON) {writeI(level);}}
+  inline __attribute__((always_inline)) void write(bool level) {
+    ATOMIC_BLOCK(ATOMIC_FORCEON) { writeI(level); }
+  }
   /**
    * @brief Set the level of a digital pin.
    *
    * @param[in] level The value to be set.
    * @note This function must be called with interrupts disabled.
    */
-  inline __attribute__((always_inline))
-  void writeI(bool level) {
+  inline __attribute__((always_inline)) void writeI(bool level) {
     *m_portReg = level ? *m_portReg | m_bit : *m_portReg & m_mask;
   }
 
@@ -74,7 +74,7 @@ class DigitalOutput {
   uint8_t m_mask;
   volatile uint8_t* m_portReg;
 };
-#else  // _AVR_
+#else   // _AVR_
 /**
  * @class DigitalOutput
  * @brief Non AVR version of digitalWrite().
@@ -95,10 +95,10 @@ class DigitalOutput {
    *
    * @param[in] level The value to be set.
    */
-  inline __attribute__((always_inline))
-  void write(bool level) {
+  inline __attribute__((always_inline)) void write(bool level) {
     digitalWrite(m_pin, level);
   }
+
  private:
   uint8_t m_pin;
 };

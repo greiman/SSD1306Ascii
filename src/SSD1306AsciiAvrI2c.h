@@ -28,8 +28,8 @@
  */
 #ifndef SSD1306AsciiAvrI2c_h
 #define SSD1306AsciiAvrI2c_h
-#include "utility/AvrI2c.h"
 #include "SSD1306Ascii.h"
+#include "utility/AvrI2c.h"
 /**
  * @class SSD1306AsciiAvrI2c
  * @brief Class for I2C displays on AVR.
@@ -69,7 +69,7 @@ class SSD1306AsciiAvrI2c : public SSD1306Ascii {
    * @param[in] frequency Desired frequency in Hz.
    *            Valid range for a 16 MHz board is about 40 kHz to 444,000 kHz.
    */
-  void setI2cClock(uint32_t frequency) {m_i2c.setClock(frequency);}
+  void setI2cClock(uint32_t frequency) { m_i2c.setClock(frequency); }
 
  protected:
   void writeDisplay(uint8_t b, uint8_t mode) {

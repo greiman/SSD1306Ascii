@@ -46,8 +46,8 @@ class SSD1306AsciiSoftSpi : public SSD1306Ascii {
    * @param[in] clk The SPI clock pin.
    * @param[in] data The SPI MOSI pin.
    */
-  void begin(const DevType* dev, uint8_t cs,
-             uint8_t dc, uint8_t clk, uint8_t data) {
+  void begin(const DevType* dev, uint8_t cs, uint8_t dc, uint8_t clk,
+             uint8_t data) {
     m_csPin.begin(cs);
     m_dcPin.begin(dc);
     m_clkPin.begin(clk);
@@ -64,8 +64,8 @@ class SSD1306AsciiSoftSpi : public SSD1306Ascii {
    * @param[in] data The SPI MOSI pin.
    * @param[in] rst The display controller reset pin.
    */
-  void begin(const DevType* dev, uint8_t cs,
-             uint8_t dc, uint8_t clk, uint8_t data, uint8_t rst) {
+  void begin(const DevType* dev, uint8_t cs, uint8_t dc, uint8_t clk,
+             uint8_t data, uint8_t rst) {
     pinMode(rst, OUTPUT);
     digitalWrite(rst, LOW);
     delay(10);

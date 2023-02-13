@@ -1,4 +1,4 @@
-#ifndef SYSTEM5FONTx7_H
+#ifndef SYSTEMFONT5x7_H
 #define SYSTEMFONT5x7_H
 
 /*

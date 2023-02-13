@@ -57,7 +57,7 @@
  */
 
 #ifndef CalBlk36_H
-#define CalBlk32_H
+#define CalBlk36_H
 
 #define CalBlk36_WIDTH 28
 #define CalBlk36_HEIGHT 36

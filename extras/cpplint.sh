@@ -1,4 +1,4 @@
 #!/bin/sh
 export PATH=/cygdrive/c/Python27:/cygdrive/c/Python27/DLLs:/cygdrive/c/Python27/Scripts:$PATH
 echo $PATH
-python cpplint.py --filter=-build/include,-runtime/references,-build/header_guard ../src/*.* ../src/utility/*.* 2>cpplint.txt
+python cpplint.py --filter=-build/include,-runtime/references,-build/header_guard ../src/*.* ../src/utility/*.*  ../src/fonts/allfonts.h  2>cpplint.txt
