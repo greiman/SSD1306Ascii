@@ -128,6 +128,7 @@ inline uint8_t readFontByte(uint8_t const *addr) { return *addr; }
  */
 #include "cp437font8x8.h"  // fixed Font from 80's IBM PC
 #include "font8x8.h"       // fixed wider font but similar to system5x7 font
+#include "bargraph.h"      // bargraph font
 
 /*
  * These fonts require UTF8 encoding support
