@@ -269,5 +269,32 @@ static const DevType MEM_TYPE SH1106_128x64 =  {
   64,
   2    // SH1106 is a 132x64 controller.  Use middle 128 columns.
 };
+//------------------------------------------------------------------------------
+static const uint8_t MEM_TYPE SH1107_64x128init[] = {  //Requires the edit in issue #104 to be applied to work correctly
+  
+  SSD1306_DISPLAYOFF,
+  SSD1306_SETSTARTPAGE,                  // set page zero
+  SSD1306_SETCONTRAST, 0x80,             // 128
+  SSD1306_SEGREMAP | 0X1,                // set segment remap
+  SSD1306_NORMALDISPLAY,                 // normal / reverse
+  SSD1306_SETMULTIPLEX, 0x3F,            // ratio 64
+  SH1106_SET_PUMP_MODE, SH1106_PUMP_ON,  // set charge pump enable
+  SH1106_SET_PUMP_VOLTAGE | 0X2,         // 8.0 volts
+  SSD1306_COMSCANDEC,                    // Com scan direction
+  SSD1306_SETDISPLAYOFFSET, 0X20,        // set display offset
+  SSD1306_SETDISPLAYCLOCKDIV, 0X80,      // set osc division
+  SSD1306_SETPRECHARGE, 0X1F,            // set pre-charge period
+  SSD1306_SETCOMPINS, 0X12,              // set COM pins
+  SSD1306_SETVCOMDETECT,  0x40,          // set vcomh
+  SSD1306_DISPLAYON
+};
+/** Initialize a 128x64 lcd display. */
+static const DevType MEM_TYPE SH1107_64x128 = {
+  SH1107_64x128init,
+  sizeof(SH1107_64x128init),
+  64,
+  128,
+  0
+};
 // clang-format on
 #endif  // SSD1306init_h
