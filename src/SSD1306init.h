@@ -269,5 +269,38 @@ static const DevType MEM_TYPE SH1106_128x64 =  {
   64,
   2    // SH1106 is a 132x64 controller.  Use middle 128 columns.
 };
+//------------------------------------------------------------------------------
+/** Initialization commands for a 128x64 ST7567 lcd display. */
+static const uint8_t MEM_TYPE ST7567_128x64init[] = {
+    0x18,             	    /* enable chip */
+    0xe2,            			  /* soft reset */
+    SSD1306_DISPLAYOFF,		  /* display off */
+    SSD1306_SETSTARTLINE,	  /* set display start line to 0 */
+    0xa1,		                /* ADC set to reverse */
+    0xc0,		                /* common output mode */
+    0xa0,		                /* ADC set to reverse */
+    0xc8,		                /* common output mode */
+    0xA6,		                /* display normal, bit val 0: LCD pixel off. */
+    0xA3,		                /* LCD bias */
+    0x28    | 4,		        /* all power  control circuits on */
+    0x28    | 6,		        /* all power  control circuits on */
+    0x28    | 7,		        /* all power  control circuits on */
+    0x23,		                /* v0 voltage resistor ratio */
+    0x81,   233,		        /* set contrast, contrast value*/
+    //0xae,		              /* display off */
+    //0xa5,		              /* enter powersafe: all pixel on */
+    0x19,
+    0xAF,
+    //0xA5
+  
+};
+/** Initialize a 128x64 lcd display. */
+static const DevType MEM_TYPE ST7567_128x64 = {
+  ST7567_128x64init,
+  sizeof(ST7567_128x64init),
+  128,
+  64,
+  0
+};
 // clang-format on
 #endif  // SSD1306init_h
