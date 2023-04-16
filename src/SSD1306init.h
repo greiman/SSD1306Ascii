@@ -269,5 +269,34 @@ static const DevType MEM_TYPE SH1106_128x64 =  {
   64,
   2    // SH1106 is a 132x64 controller.  Use middle 128 columns.
 };
+//------------------------------------------------------------------------------
+// this section is based on 64x48 Micro OLED display (by r7)
+/** Initialization commands for a 64x32 SSD1306 0.49 inch oled display. */
+static const uint8_t MEM_TYPE MicroOLED64x32init[] = {
+    // Init sequence for 64x32 Micro OLED module
+    SSD1306_DISPLAYOFF,
+    SSD1306_SETDISPLAYCLOCKDIV, 0x80,  // the suggested ratio 0x80
+    SSD1306_SETMULTIPLEX, 0x1F,        // (DISPLAYHEIGHT - 1)
+    SSD1306_SETDISPLAYOFFSET, 0x0,     // no offset
+    SSD1306_SETSTARTLINE,              // line #0
+    SSD1306_CHARGEPUMP, 0x14,          // internal vcc
+    SSD1306_NORMALDISPLAY,
+    SSD1306_DISPLAYALLON_RESUME,
+    SSD1306_SEGREMAP | 0x1,            // column 127 mapped to SEG0
+    SSD1306_COMSCANDEC,                // column scan direction reversed
+    SSD1306_SETCOMPINS, 0x12,          // 0x12 if height > 32 else 0x02
+    SSD1306_SETCONTRAST, 0x7F,         // contrast level 127
+    SSD1306_SETPRECHARGE, 0xF1,        // pre-charge period (1, 15)
+    SSD1306_SETVCOMDETECT, 0x40,       // vcomh regulator level
+    SSD1306_DISPLAYON
+};
+/** Initialize a 64x32 Micro OLED display. */
+static const DevType MEM_TYPE MicroOLED64x32 = {
+  MicroOLED64x32init,
+  sizeof(MicroOLED64x32init),
+  64,
+  32,
+  32 // Use middle 64 columns. (128 - 64) / 2
+};
 // clang-format on
 #endif  // SSD1306init_h
